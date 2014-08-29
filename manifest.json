@@ -12,7 +12,7 @@
             "38": "images/icon.png"          
           },
           "default_title": "MD",     
-          "default_popup": "login.html"      
+          "default_popup": "popup.html"      
         },
 	"permissions":[
 		"contextMenus",
@@ -20,11 +20,14 @@
         "tabs"
     ],
 	"content_scripts":[{
-		 "matches":["https://github.com/robots.txt*"],
-        "js":["libs/injection.js"],
-        "run_at":"document_start"
+		 "matches":["<all_urls>"],
+        "js":["js/content_script.js"],
+        "run_at":"document_idle",
+		"all_frames": true
     }],
 	"web_accessible_resources":[
-		"assets/*"
+		"assets/*",
+		"libs/*",
+		"login.html"
 	]
 }

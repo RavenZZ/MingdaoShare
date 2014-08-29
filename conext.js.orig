@@ -2,8 +2,8 @@
 
 
 createMenu();
-chrome.runtime.onMessage.addListener(function (id, obj) {
-    
+chrome.runtime.onMessage.addListener(function (b) {
+    alert(b);
 });
 // A generic onclick callback function.
 function genericOnClick(info, tab) {
@@ -51,8 +51,13 @@ function popup(url) {
 /*
     页面直接点击
 */
+<<<<<<< HEAD
+function pageMenuClick(info,tab) {
+    showDialog(info,tab)
+=======
 function pageMenuClick(info, tab) {
     popup('login.html');
+>>>>>>> 4c5475ff1f0dc12efb0e0fe69be62be1eedeecbf
     console.log(JSON.stringify(info));
 }
 

@@ -3,24 +3,25 @@
 
         access_token_url: "https://api.mingdao.com/oauth2/access_token",
         authorization_url: "https://api.mingdao.com/oauth2/authorize",
-        client_id: "E9EEBF47C2CB",
-        client_secret: "8B9E15C9F494AAF867D141FE7F564AB",
-        redirect_url: "chrome-extension://pdfcpegfgdjffbgmomnllkpgeokjnecp/index.html",
+        client_id: "FC07433C4B74",
+        client_secret: "501C8FA4F7E51BFCAE7EED783653150",
+        redirect_url: "chrome-extension://jfejddblnfkjaocfpcoimmcnlobndiea/index.html",
         grant_type:'authorization_code',
         scopes: [],
 
-        key: "E9EEBF47C2CB",
+        key: "FC07433C4B74",
 
         /**
          * Starts the authorization process.
          */
         start: function() {
-            window.close();
+            //window.close();
             var url = this.authorization_url + "?client_id=" + this.client_id + "&redirect_uri=" + this.redirect_url + "&scopes=";
             for(var i in this.scopes) {
                 url += this.scopes[i];
             }
-            chrome.tabs.create({url: url, active: true});
+            window.location = url;
+            //chrome.tabs.create({url: url, active: true});
         },
 
         /**
@@ -64,8 +65,8 @@
                             } else {
                                 var result = JSON.parse(xhr.responseText);
                                 var token = result.access_token;// xhr.responseText.match(/access_token=([^&]*)/)[1];
-                                window.localStorage.setItem(that.key, token);
-                                removeTab();
+                                window.localStorage.setItem('token', token);
+                                //removeTab();
                             }
                         } else {
                             removeTab();
