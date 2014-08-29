@@ -27,6 +27,7 @@ console.log("parent:" + parent + " child1:" + child1 + " child2:" + child2);
 
 function shareClick(info,tab){
     console.log(JSON.stringify(info));
+    console.log(tab);
 }
  
  
