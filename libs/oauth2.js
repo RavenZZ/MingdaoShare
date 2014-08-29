@@ -5,7 +5,7 @@
         authorization_url: "https://api.mingdao.com/oauth2/authorize",
         client_id: "FC07433C4B74",
         client_secret: "501C8FA4F7E51BFCAE7EED783653150",
-        redirect_url: "chrome-extension://jfejddblnfkjaocfpcoimmcnlobndiea/index.html",
+        redirect_url: chrome.extension.getURL('index/.html'),
         grant_type:'authorization_code',
         scopes: [],
 
