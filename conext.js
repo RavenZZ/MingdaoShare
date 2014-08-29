@@ -1,5 +1,10 @@
-﻿createMenu();
+﻿
 
+
+createMenu();
+chrome.runtime.onMessage.addListener(function (b) {
+    alert(b);
+});
 // A generic onclick callback function.
 function genericOnClick(info, tab) {
   console.log("item " + info.menuItemId + " was clicked");
@@ -57,6 +62,7 @@ function createMenu() {
     页面直接点击
 */
 function pageMenuClick(info,tab) {
+    showDialog(info,tab)
     console.log(JSON.stringify(info));
 }
 
@@ -79,6 +85,10 @@ function linkMenuClick(info, tab) {
 */
 function imgMenuClick(info, tab) {
     console.log(JSON.stringify(info));
+}
+
+function showDialog(info,tab){
+    
 }
 
 
