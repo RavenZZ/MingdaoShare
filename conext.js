@@ -39,24 +39,15 @@ function createMenu() {
         "title": title4, "contexts": ['image'],
         "onclick": imgMenuClick
     });
-
-    // //Create a parent item and two children.
-    //var parent = chrome.contextMenus.create({ "title": "分享此网页到明道", 'onclick': shareClick });
-    //var child1 = chrome.contextMenus.create(
-    //  { "title": "Child 1", "parentId": parent, "onclick": genericOnClick });
-    //var child2 = chrome.contextMenus.create(
-    //  { "title": "Child 2", "parentId": parent, "onclick": genericOnClick });
-    //console.log("parent:" + parent + " child1:" + child1 + " child2:" + child2);
-
-    //function shareClick(info, tab) {
-    //    console.log(JSON.stringify(info));
-    //}
 }
-
+function popup(url) {
+    window.open(url, "window", "width=600,height=400,status=yes,scrollbars=yes,resizable=yes");
+}
 /*
     页面直接点击
 */
-function pageMenuClick(info,tab) {
+function pageMenuClick(info, tab) {
+    popup('login.html');
     console.log(JSON.stringify(info));
 }
 
