@@ -1,26 +1,32 @@
-﻿var last = window.localStorage.getItem('last');
-var data = JSON.parse(last);
-if (data) {
-    var shareType = data.type;
-    if (shareType == 'link') {
-        var info = data.info;
-        var tab = data.tab;
-        var link = info.pageUrl;
-        var data = {
-            msg: tab.title,
-            title: tab.title,
-            link: link
-        };
-
-        ShareLink(data, function () {
+﻿$(function () {
 
 
-        });
-    }
- 
 
 
-}
+    $('#ShareToMingdao').bind('click', function () {
+        var last = window.localStorage.getItem('last');
+        var data = JSON.parse(last);
+        if (data) {
+            var shareType = data.type;
+            if (shareType == 'link') {
+                var info = data.info;
+                var tab = data.tab;
+                var link = info.pageUrl;
+                var data = {
+                    msg: tab.title,
+                    title: tab.title,
+                    link: link
+                };
+
+                ShareLink(data, function () {
+
+                });
+            }
+        }
+    });
+});
+
+
 
 function GetToken(callback){
     var token = window.localStorage.getItem('token');
@@ -56,25 +62,26 @@ function ShareLink(shareData, callback) {
 
 }
 
-
+/*
+    Post请求
+*/
 function Post(url, data, callback) {
     var postData = new FormData();
     for (var i in data) {
         postData.append(i, data[i]);
     }
-
     var xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', function (event) {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 if (xhr.responseText.match(/error=/)) {
-                    removeTab();
+                    callback(null);
                 } else {
                     var result = JSON.parse(xhr.responseText);
                     callback(result);
                 }
             } else {
-                removeTab();
+                callback(null);
             }
         }
     });

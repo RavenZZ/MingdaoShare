@@ -3,13 +3,13 @@
 
         access_token_url: "https://api.mingdao.com/oauth2/access_token",
         authorization_url: "https://api.mingdao.com/oauth2/authorize",
-        client_id: "FC07433C4B74",
-        client_secret: "501C8FA4F7E51BFCAE7EED783653150",
+        client_id: "E9EEBF47C2CB",
+        client_secret: "8B9E15C9F494AAF867D141FE7F564AB",
         redirect_url: chrome.extension.getURL('index.html'),
         grant_type:'authorization_code',
         scopes: [],
 
-        key: "FC07433C4B74",
+        key: "E9EEBF47C2CB",
 
         /**
          * Starts the authorization process.
@@ -66,6 +66,7 @@
                                 var result = JSON.parse(xhr.responseText);
                                 var token = result.access_token;// xhr.responseText.match(/access_token=([^&]*)/)[1];
                                 window.localStorage.setItem('token', token);
+                                window.localStorage.setItem('tokenTime', +new Date);
                                 window.location = '/share.html';
                                 //removeTab();
                             }
