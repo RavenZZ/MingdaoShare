@@ -636,7 +636,7 @@ textarea:focus,input:focus {
 }
 .share-dialog .box-title .text {
 	margin:0;
-	padding-left:20px;
+	padding-left:50px;
 	font-size:18px;
 	line-height:26px;
 	background:url(/images/logo.png) no-repeat 0 50%;
@@ -870,22 +870,12 @@ textarea:focus,input:focus {
 .btn:hover {
 	background:#FD6550;
 }
-.rbtn {
-	color:#fff;
-	background:linear-gradient(#E53E49,#D43636);
-	box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 1px 0 rgba(255,255,255,.3);
-	text-shadow:0 -1px 0 rgba(0,0,0,.1);
-	border:1px solid #C90000;
-}
-.rbtn:hover {
-	color:#fff;
-	background:linear-gradient(#F45D68,#E54646);
-	box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 1px 0 rgba(255,255,255,.1);
-	border:1px solid #C90000;
-}
-.rbtn:active {
-	background:linear-gradient(#E43340,#D43636);
-	box-shadow:inset 0 1px 2px rgba(128,0,0,.3),0 1px 0 rgba(255,255,255,.3);
+.rbtn
+{
+    color: #fff;
+    background: url(../images/btn-share.png) no-repeat!important;
+    width: 188px;
+    height: 48px;
 }
 .wbtn {
 	background:linear-gradient(#FAFAFA,#F2F2F2);

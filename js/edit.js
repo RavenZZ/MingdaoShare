@@ -1380,3 +1380,59 @@ var photoshop = {
         setTimeout(a, 50)
     }
 };
+window.addEventListener("load", function () {
+    photoshop.init();
+    $("photo").addEventListener("mousedown", parent.photoshop.onMouseDown, false);
+   $("photo").addEventListener("mousemove", parent.photoshop.onMouseMove, false);
+    $("photo").addEventListener("mouseup", parent.photoshop.onMouseUp, false);
+    $("canvas").addEventListener("selectstart",
+    function () {
+        return false
+    });
+    $("mask_canvas").addEventListener("selectstart",
+    function () {
+        return false
+    });
+    setTimeout(function () {
+        UploadUI.showDialog()
+    },
+    100);
+    var a = Mingdao.getUser();
+    if (a) {
+        UploadUI.showUser(a);
+    } else {
+        var token = Mingdao.getToken();
+        if (token) {
+            UploadUI.getUserInfo({ accessToken: token });
+        }
+    }
+    var c = new Image();
+    if (localStorage.screenshotFormat == "jpeg") {
+        c.src = $("canvas").toDataURL("image/jpeg", 1)
+    } else {
+        c.src = $("canvas").toDataURL("image/png")
+    }
+    $("btn_upload").addEventListener("click",
+    function (d) {
+        photoshop.draw();
+        if (localStorage.screenshotFormat == "jpeg") {
+            c.src = parent.$("canvas").toDataURL("image/jpeg", 1)
+        } else {
+            c.src = parent.$("canvas").toDataURL("image/png")
+        }
+        UploadUI.showDialog();
+        photoshop.finish();
+        d.preventDefault()
+    });
+    $("btn_close").addEventListener("click",
+    function (d) {
+        chrome.tabs.query({
+            active: true,
+            currentWindow: true
+        },
+        function (e) {
+            chrome.tabs.remove(e[0].id)
+        });
+        d.preventDefault()
+    })
+});

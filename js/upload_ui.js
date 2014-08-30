@@ -56,6 +56,12 @@ var ShareButton = {
         ShareButton.pin = a
     }
 };
+var querySelector = function (str) {
+    return parent.document.querySelector(str) || $("share-to-mingdao").contentWindow.document.querySelector(str);
+}
+var $ = function (str) {
+    return parent.document.getElementById(str) || $("share-to-mingdao").contentWindow.document.getElementById(str);
+}
 var PopupPicker = {
     init: function (c, a, b) {
         this.element = c;
@@ -202,13 +208,13 @@ var BoardPicker = {
 var UploadUI = {
     init: function (a) {
         if (a) {
-            Huaban.currentUserId = a.id
+            Mingdao.currentUserId = a.id
         }
-        parent.document.querySelector("#pin_wrapper .box-title .close").addEventListener("click",
+        querySelector("#pin_wrapper .box-title .close").addEventListener("click",
         function (c) {
             $("pin-done").style.display = "none";
-            document.querySelector("#dialog-box .pbt").style.display = "block";
-            var b = document.querySelector("#dialog-box .rbtn");
+            querySelector("#dialog-box .pbt").style.display = "block";
+            var b = querySelector("#dialog-box .rbtn");
             b.classList.remove("disabled");
             b.innerText = "分享";
             UploadUI.closeDialog();
@@ -274,14 +280,14 @@ var UploadUI = {
         Mingdao.getAccessToken(a)
     },
     getUserInfo: function (a) {
-        Huaban.getUserInfo(a,
+        Mingdao.getUserInfo(a,
         function (b, c, e) {
             if (b == "success") {
                 var d = a.id;
-                if (!Huaban.getUser(d)) {
-                    Huaban.currentUserId = d;
-                    Huaban.addUser(a);
-                    UploadUI.showUser(a);
+                if (!Mingdao.getUser(d)) {
+                    Mingdao.currentUserId = d;
+                    Mingdao.addUser(a);
+                    parent.UploadUI.showUser(a);
                     UploadUI.fillBoards(e)
                 }
             } else {
@@ -290,7 +296,7 @@ var UploadUI = {
         })
     },
     getBoards: function (a) {
-        Huaban.getBoards(a,
+        Mingdao.getBoards(a,
         function (b, c) {
             if (b == "success") {
                 UploadUI.fillBoards(c)
@@ -300,22 +306,22 @@ var UploadUI = {
         })
     },
     fillBoards: function (b) {
-        var a = document.querySelector("div.board-picker");
+        var a = querySelector("div.board-picker");
         BoardPicker.init(a, b)
     },
     initBoards: function (a) {
-        var b = document.querySelector("div.board-picker");
-        var g = b.querySelector("div.create-board");
+        var b = querySelector("div.board-picker");
+        var g = querySelector("div.create-board");
         var m = $("board_name_input");
-        var e = g.querySelector("a.btn");
-        var i = g.querySelector(".create-board-status");
-        var c = document.querySelector("#dialog-box .rbtn");
+        var e = querySelector("a.btn");
+        var i = querySelector(".create-board-status");
+        var c = querySelector("#dialog-box .rbtn");
         var h = 8;
-        var j = document.querySelector("textarea.description-textarea");
+        var j = querySelector("textarea.description-textarea");
         var f = BoardPicker;
         var k = $$(".tag-tip")[0];
         var n = $$(".tag-prompt")[0];
-        var l = n.querySelector(".tags");
+        var l = querySelector(".tags");
         UploadUI.fillBoards(a);
         j.addEventListener("keyup",
         function () {
@@ -379,7 +385,7 @@ var UploadUI = {
                 return
             }
             e.classList.add("disabled");
-            Huaban.createBoard(p,
+            Mingdao.createBoard(p,
             function (q, s) {
                 if (q == "success" && s && s.board) {
                     f.add(s.board).hide()
@@ -409,14 +415,14 @@ var UploadUI = {
                 return alert("请选择画板")
             }
             var r = $("description").value;
-            var q = document.querySelector("input.publish_to_weibo").checked;
+            var q = querySelector("input.publish_to_weibo").checked;
             var o = $("url").value;
             var s = UploadUI.getImageData();
             c.innerText = "分享中…";
-            Huaban.upload(t, r, o, q, s,
+            Mingdao.upload(t, r, o, q, s,
             function (v, x, z) {
                 if (v == "success") {
-                    document.querySelector("#dialog-box .pbt").style.display = "none";
+                    querySelector("#dialog-box .pbt").style.display = "none";
                     var y = x;
                     var w = $("pin-done");
                     var B = $("view_pin");
@@ -432,7 +438,7 @@ var UploadUI = {
                         window.close()
                     });
                     w.style.display = "block";
-                    var A = w.querySelector("a.less");
+                    var A = querySelector("a.less");
                     A.innerText = y.board.title;
                     A.href = "http://" + DOMAIN + "/boards/" + y.board_id;
                     ShareButton.setPin(y);
@@ -460,13 +466,19 @@ var UploadUI = {
         m.addEventListener("blur", d)
     },
     showUser: function (b) {
-        $("loading").style.display = "none";
-        $("authorization").style.display = "none";
-        document.querySelector(".pin-form").style.display = "block";
+        var loadding = parent.$("loading") || cc("loading"),
+            authorization = parent.$("authorization") || cc("authorization"),
+            pinform = querySelector(".pin-form");
+            
+        loadding.style.display = "none";
+        authorization.style.display = "none";
+
+        pinform.style.display = "block";
+
         if (b && b.bindings && b.bindings.weibo) {
-            document.querySelector(".pin-form .buttons label.weibo").style.display = "block"
+            querySelector(".pin-form .buttons label.weibo").style.display = "block"
         } else {
-            document.querySelector(".pin-form .buttons label.weibo").style.display = "none"
+            querySelector(".pin-form .buttons label.weibo").style.display = "none"
         }
         var f = $("user_icon");
         var c = document.createElement("a");
@@ -503,12 +515,12 @@ var UploadUI = {
     showAuth: function () {
         $("loading").style.display = "none";
         $("authorization").style.display = "block";
-        document.querySelector(".pin-form").style.display = "none"
+        querySelector(".pin-form").style.display = "none"
     },
     showLoading: function () {
         $("loading").style.display = "block";
         $("authorization").style.display = "none";
-        document.querySelector(".pin-form").style.display = "none"
+        querySelector(".pin-form").style.display = "none"
     },
     getImageData: function () {
         var a = photoshop.getDataUrl();

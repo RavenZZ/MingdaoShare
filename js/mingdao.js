@@ -6,7 +6,7 @@
     var callbackUrl = chrome.extension.getURL('index.html');
    
     var acctountUrl = "http://api." + domain + "/passport/detail";
-    var h = "http://api." + domain + "/boards";
+    var groupUrl = "http://api." + domain + "/group/my_joined";
     var g = "http://api." + domain + "/pins/";
     var e = "Mingdao_Bobobee_Boundary";
     var j = function (m) {
@@ -15,6 +15,10 @@
         }
     };
     var c = {
+        getToken: function () {
+            var token = localStorage.getItem("token");
+            return token;
+        },
         getAllUsers: function () {
             var n = localStorage.getItem("mingdao_userInfo");
             if (n) {
@@ -75,6 +79,9 @@
         currentUserId: null,
         redirectUrl: callbackUrl,
         accessTokenCallback: null,
+        getToken: function () {
+            return c.getToken();
+        },
         addUser: function (m) {
             return c.addUser(m)
         },
@@ -97,9 +104,10 @@
         getAccessToken: function (n) {
             b.accessTokenCallback = n;
             var m = authorizeUrl + "?app_key=" + app_key + "&redirect_uri=" + callbackUrl + "&response_type=" + response_type;
-            chrome.tabs.create({
-                url: m
-            })
+            //chrome.tabs.create({
+            //    url: m
+            //})
+            window.location = m;
         },
         parseRedirectUrl: function (p) {
             var m = false;
@@ -168,7 +176,7 @@
             })
         },
         createBoard: function (o, q) {
-            var m = c.getUser(Huaban.currentUserId);
+            var m = c.getUser(Mingdao.currentUserId);
             var p = "bearer " + m.accessToken;
             var n = "title=" + encodeURIComponent(o);
             ajax({
@@ -185,31 +193,27 @@
             })
         },
         getUserInfo: function (m, o) {
-            var n = "bearer " + m.accessToken;
             ajax({
-                url: i,
-                headers: {
-                    access_token: n,
+                url: acctountUrl,
+                headers: {},
+                parameters: {
+                    access_token: m.accessToken,
+                    format: 'json'
                 },
-                parameters: {},
                 success: function (q) {
                     if (!q.user) {
                         o("failure", "failed_to_get_user_info");
                         return
                     }
-                    var p = q.user.user_id;
-                    var r = q.user.username;
+                    var p = q.user.id;
+                    var r = q.user.name;
                     m.id = p;
                     m.name = r;
-                    m.urlname = q.user.urlname;
                     m.avatar = q.user.avatar;
-                    m.bindings = q.user.bindings;
                     ajax({
-                        url: h,
-                        headers: {
-                            access_token: n
-                        },
-                        parameters: {},
+                        url: groupUrl,
+                        headers: {},
+                        parameters: { access_token: m.accessToken, u_id: m.id, format: "json" },
                         success: function (s) {
                             o("success", m, s.boards)
                         }
@@ -223,7 +227,7 @@
             })
         },
         upload: function (n, x, t, p, m, w) {
-            var r = c.getUser(Huaban.currentUserId);
+            var r = c.getUser(Mingdao.currentUserId);
             var s = "Bearer " + r.accessToken;
             var v = new Date().getTime() + "." + localStorage.screenshotFormat;
             var q = "image/" + localStorage.screenshotFormat;

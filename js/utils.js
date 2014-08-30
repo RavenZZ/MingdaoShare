@@ -5,10 +5,10 @@ var imgHosts = {
 };
 var Utils = {
     getUserUrl: function (link) {
-        return "http://" + DOMAIN + "/" + link.urlname
+        return "http://" + DOMAIN + "/user_" + link.id;
     },
     getImgUrl: function (img, b) {
-        return "http://" + imgHosts[img.bucket] + "/" + img.key + (b ? "_" + b : "")
+        return img;
     },
     i18nReplace: function (id, msg) {
         return $(id).innerHTML = chrome.i18n.getMessage(msg)
