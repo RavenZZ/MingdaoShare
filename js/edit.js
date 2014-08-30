@@ -228,6 +228,9 @@ var Canvas = (function () {
         }
     }
 }());
+var cc = function (id) {
+    return $("share-to-mingdao").contentWindow.$(id);
+}
 var photoshop = {
     canvas: document.createElement("canvas"),
     tabTitle: "",
@@ -1377,71 +1380,3 @@ var photoshop = {
         setTimeout(a, 50)
     }
 };
-window.addEventListener("load",
-function () {
-    photoshop.init();
-    $("photo").addEventListener("mousedown", photoshop.onMouseDown, false);
-    $("photo").addEventListener("mousemove", photoshop.onMouseMove, false);
-    $("photo").addEventListener("mouseup", photoshop.onMouseUp, false);
-    document.body.addEventListener("mousemove", photoshop.onMouseMove, false);
-    document.body.addEventListener("mouseup", photoshop.onMouseUp, false);
-    $("canvas").addEventListener("selectstart",
-    function () {
-        return false
-    });
-    $("mask_canvas").addEventListener("selectstart",
-    function () {
-        return false
-    });
-    setTimeout(function () {
-        UploadUI.showDialog()
-    },
-    100);
-    var b = document.querySelector("#pin_wrapper .image-picker .carousel-clip");
-    var c = new Image();
-    if (localStorage.screenshotFormat == "jpeg") {
-        c.src = $("canvas").toDataURL("image/jpeg", 1)
-    } else {
-        c.src = $("canvas").toDataURL("image/png")
-    }
-    b.appendChild(c);
-    $("description").value = bg.screenshot.page_info.text;
-    $("url").value = bg.screenshot.page_info.href;
-    var a = Mingdao.getUser();
-    UploadUI.init(a);
-    if (!a) {
-        UploadUI.showAuth()
-    } else {
-        UploadUI.showUser(a);
-        UploadUI.getBoards(a)
-    }
-    $("auth_btn").addEventListener("click",
-    function (d) {
-        UploadUI.showLoading();
-        UploadUI.getAccessToken();
-        d.preventDefault()
-    });
-    $("btn_upload").addEventListener("click",
-    function (d) {
-        photoshop.draw();
-        if (localStorage.screenshotFormat == "jpeg") {
-            c.src = $("canvas").toDataURL("image/jpeg", 1)
-        } else {
-            c.src = $("canvas").toDataURL("image/png")
-        }
-        UploadUI.showDialog();
-        photoshop.finish();
-        d.preventDefault()
-    });
-    $("btn_close").addEventListener("click",
-    function (d) {
-        chrome.tabs.query({
-            active: true,
-            currentWindow: true
-        },
-        function (e) {
-            chrome.tabs.remove(e[0].id)
-        });
-        d.preventDefault()
-    })
-});

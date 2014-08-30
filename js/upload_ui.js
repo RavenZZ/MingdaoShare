@@ -204,11 +204,11 @@ var UploadUI = {
         if (a) {
             Huaban.currentUserId = a.id
         }
-        document.querySelector("#pin_wrapper .box-title .close").addEventListener("click",
+        parent.document.querySelector("#pin_wrapper .box-title .close").addEventListener("click",
         function (c) {
             $("pin-done").style.display = "none";
-            document.querySelector("#pin_wrapper .pbt").style.display = "block";
-            var b = document.querySelector("#pin_wrapper .rbtn");
+            document.querySelector("#dialog-box .pbt").style.display = "block";
+            var b = document.querySelector("#dialog-box .rbtn");
             b.classList.remove("disabled");
             b.innerText = "分享";
             UploadUI.closeDialog();
@@ -271,7 +271,7 @@ var UploadUI = {
                 UploadUI.showAuth()
             }
         };
-        Huaban.getAccessToken(a)
+        Mingdao.getAccessToken(a)
     },
     getUserInfo: function (a) {
         Huaban.getUserInfo(a,
@@ -309,7 +309,7 @@ var UploadUI = {
         var m = $("board_name_input");
         var e = g.querySelector("a.btn");
         var i = g.querySelector(".create-board-status");
-        var c = document.querySelector("#pin_wrapper .rbtn");
+        var c = document.querySelector("#dialog-box .rbtn");
         var h = 8;
         var j = document.querySelector("textarea.description-textarea");
         var f = BoardPicker;
@@ -416,7 +416,7 @@ var UploadUI = {
             Huaban.upload(t, r, o, q, s,
             function (v, x, z) {
                 if (v == "success") {
-                    document.querySelector("#pin_wrapper .pbt").style.display = "none";
+                    document.querySelector("#dialog-box .pbt").style.display = "none";
                     var y = x;
                     var w = $("pin-done");
                     var B = $("view_pin");
@@ -515,18 +515,18 @@ var UploadUI = {
         return atob(a.split(",")[1])
     },
     showDialog: function () {
-        var a = $("overlay");
-        a.style.width = document.body.scrollWidth + "px";
-        a.style.height = document.body.scrollHeight + "px";
+        var a = parent.$("overlay");
+        a.style.width = parent.document.body.scrollWidth + "px";
+        a.style.height = parent.document.body.scrollHeight + "px";
         a.style.display = "block";
-        $("pin_wrapper").style.display = "block"
+        parent.$("pin_wrapper").style.display = "block"
     },
     closeDialog: function () {
-        var a = $("overlay");
+        var a = parent.$("overlay");
         a.style.width = document.body.scrollWidth + "px";
         a.style.height = document.body.scrollHeight + "px";
         a.style.display = "none";
-        $("pin_wrapper").style.display = "none"
+        parent.$("pin_wrapper").style.display = "none"
     }
 }; (function () {
     var a;
@@ -541,12 +541,12 @@ var UploadUI = {
         switch (d.msg) {
             case "url_for_access_token":
                 var b = d.url;
-                if (Huaban.isRedirectUrl(b)) {
+                if (Mingdao.isRedirectUrl(b)) {
                     chrome.tabs.update(a, {
                         selected: true
                     });
                     chrome.tabs.remove(c.tab.id);
-                    Huaban.parseAccessToken(b)
+                    Mingdao.parseAccessToken(b)
                 }
                 break
         }
