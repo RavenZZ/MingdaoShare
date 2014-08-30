@@ -340,8 +340,7 @@ function () {
                     }
                 },
                 on: function (a, d, e, f, g) {
-                    return x(a,
-                    function (a) {
+                    return x(a,function (a) {
                         if (3 === a.nodeType || 8 === a.nodeType) return !1;
                         if ("object" == typeof d) {
                             "string" != typeof e && (f = f || e, e = c);
@@ -2033,14 +2032,13 @@ function () {
                 c.$event.on(q, "click",
                 function () {
                     c.$className.has(this, "MINGDAO-on") ? (c.$className.remove(this, "MINGDAO-on"), a.settings.orderBy = "recommend", d.reOrder("recommend")) : (c.$className.add(this, "MINGDAO-on"), a.settings.orderBy = "document", d.reOrder("document"))
-                }),
-                c.$event.on(document.body, "keydown",
-                function (a) {
-                    if (d.isShowing && 27 == a.originalEvent.keyCode) {
-                        var e = b.document.activeElement;
-                        return "input" == e.tagName || "textarea" == e.tagName || c.$attr.get(e, "contenteditable") ? a.originalEvent.target.blur() : void d.hide()
+                });
+                document.body.onkeydown = function (a) {
+                    if (d.isShowing && 27 == a.keyCode) {
+                        var e = a.target;
+                        return "input" == e.tagName || "textarea" == e.tagName || c.$attr.get(e, "contenteditable") ? a.target.blur() : void d.hide()
                     }
-                })
+                }
             },
             buildCells: function (b) {
                 var d = this;
