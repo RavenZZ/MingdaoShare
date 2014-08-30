@@ -44,8 +44,7 @@
             100)
         });
         var pinAllBtn = $("pin-all-btn");
-        pinAllBtn.addEventListener("click",
-        function () {
+        pinAllBtn.addEventListener("click",function () {
             if (this.classList.contains("disabled")) {
                 return false
             }
@@ -76,17 +75,13 @@
         captureViewportItem.classList.add("disabled");
         captureFullpageItem.classList.add("disabled");
 
-        chrome.runtime.sendMessage({
-            msg: "isShortCutEnabled"
-        },
-        function (response) {
+        chrome.runtime.sendMessage({msg: "isShortCutEnabled" },function (response) {
             var elabled = response.isShortCutEnabled;
             captureAreaItem.getElementsByClassName("prompt")[0].style.display = elabled ? "inline" : "none";
             captureViewportItem.getElementsByClassName("prompt")[0].style.display = elabled ? "inline" : "none";
             captureFullpageItem.getElementsByClassName("prompt")[0].style.display = elabled ? "inline" : "none"
         });
-        captureAreaItem.addEventListener("click",
-        function () {
+        captureAreaItem.addEventListener("click",function () {
             if (this.classList.contains("disabled")) {
                 return false
             }
@@ -94,8 +89,7 @@
             background.screenshot.showSelectionArea();
             window.close()
         });
-        captureViewportItem.addEventListener("click",
-           function () {
+        captureViewportItem.addEventListener("click",function () {
                if (this.classList.contains("disabled")) {
                    return false
                }
@@ -103,8 +97,7 @@
                background.screenshot.captureViewport();
                window.close()
            });
-        captureFullpageItem.addEventListener("click",
-         function () {
+        captureFullpageItem.addEventListener("click",function () {
              if (this.classList.contains("disabled")) {
                  return false
              }
@@ -148,4 +141,21 @@
 
     }
     document.addEventListener("DOMContentLoaded", Menu.init);
+    chrome.runtime.onMessage.addListener(function (b, a) {
+        console.log(b.msg);
+        if (b.msg == "page_capturable") {
+            enableCapture()
+        } else {
+            if (b.msg == "page_uncapturable") {
+                disableCapture()
+            }
+        }
+        if (b.msg == "pinable") {
+            $("pin-all-btn").classList.remove("disabled")
+        } else {
+            if (b.msg == "unpinable") {
+                $("pin-all-btn").classList.add("disabled")
+            }
+        }
+    });
 }());
