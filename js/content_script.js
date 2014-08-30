@@ -1,5 +1,22 @@
-﻿
-"use strict";
+﻿"use strict";
+var MIN_WIDTH = 200;
+var global = "MINGDAO_GLOBAL";
+var merge = function () {
+    var b = {};
+    for (var e = 0,
+    c = arguments.length; e < c; e++) {
+        var a = arguments[e] || {};
+        for (var d in a) {
+            b[d] = a[d]
+        }
+    }
+    return b
+};
+var contains = function (a, b) {
+    return a.some(function (c) {
+        return b.indexOf(c) >= 0
+    })
+};
 var $ = function (id) {
     return document.getElementById(id);
 }

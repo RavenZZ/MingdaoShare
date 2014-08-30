@@ -256,8 +256,7 @@ var screenshot = {
         chrome.tabs.captureVisibleTab(null, {
             format: a,
             quality: 100
-        },
-        function (c) {
+        }, function (c) {
             var d = new Image();
             d.onload = function () {
                 var k = d.width;

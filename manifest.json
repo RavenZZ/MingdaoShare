@@ -17,15 +17,23 @@
 	"permissions":[
 		"contextMenus",
         "https://api.mingdao.com/oauth2/authorize",
-        "tabs"
+        "tabs",
+		"http://*/*", 
+		"https://*/*", 
+		"activeTab", 
+		"\u003Call_urls>"
     ],
 	"content_scripts":[{
+		 "exclude_globs": [ "http://huaban.com*", "http://www.huaban.com*"],
+		 "include_globs": [ "*" ],
 		 "matches":["<all_urls>"],
+		"css": [ "css/capture.css" ],
         "js":["js/isload.js","js/content_script.js","js/script.js","js/shortcut.js"],
         "run_at":"document_end",
 		"all_frames": true
     }],
 	"web_accessible_resources":[
+		"css/*",
 		"js/*",
 		"libs/*",
 		"images/*",

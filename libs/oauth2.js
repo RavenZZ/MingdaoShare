@@ -3,13 +3,13 @@
 
         access_token_url: "https://api.mingdao.com/oauth2/access_token",
         authorization_url: "https://api.mingdao.com/oauth2/authorize",
-        client_id: "E9EEBF47C2CB",
-        client_secret: "8B9E15C9F494AAF867D141FE7F564AB",
+        client_id: "FC07433C4B74",
+        client_secret: "501C8FA4F7E51BFCAE7EED783653150",
         redirect_url: chrome.extension.getURL('index.html'),
         grant_type:'authorization_code',
         scopes: [],
 
-        key: "E9EEBF47C2CB",
+        key: "FC07433C4B74",
 
         /**
          * Starts the authorization process.
