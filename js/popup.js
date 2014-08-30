@@ -58,15 +58,15 @@
                 if (url.indexOf(DOMAIN) == 0) {
                     return
                 }
-                chrome.tabs.sendMessage(i.id, {
+                chrome.tabs.sendMessage(tab.id, {
                     msg: "showValidImages"
                 },
                 function (response) { })
             });
-            setTimeout(function () {
-                window.close()
-            },
-            100)
+            //setTimeout(function () {
+            //    window.close()
+            //},
+            //100)
         });
         var captureAreaItem = $("capture-area-item");
         var captureViewportItem = $("capture-viewport-item");

@@ -3,7 +3,7 @@
   "description": "Shows some of the features of the Context Menus API",
   "version": "0.6",
   "background": {
-      "scripts": ["js/background.js"]
+      "scripts": ["js/ajax.js","js/background.js","js/hotkeys.js","js/utils.js"]
    },
   "manifest_version": 2,
   "browser_action": {
@@ -21,13 +21,14 @@
     ],
 	"content_scripts":[{
 		 "matches":["<all_urls>"],
-        "js":["js/isload.js","js/content_script.js","js/script.js"],
+        "js":["js/isload.js","js/content_script.js","js/script.js","js/shortcut.js"],
         "run_at":"document_idle",
 		"all_frames": true
     }],
 	"web_accessible_resources":[
 		"js/*",
 		"libs/*",
+		"images/*",
 		"login.html"
 	]
 }

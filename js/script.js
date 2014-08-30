@@ -1,29 +1,29 @@
 ﻿"use strict";
-var DOMAIN = "huaban.com";
-var global = "HUABAN_GLOBAL";
-var old_global = "__huaban";
-var global_settings = "HUABAN_PRESETTINGS";
+var DOMAIN = "mingdao.com";
+var global = "MINGDAO_GLOBAL";
+var old_global = "__mingdao";
+var global_settings = "MINGDAO_PRESETTINGS";
 var insertScript = function (c) {
-    var a = document.getElementById("HUABAN_WIDGET_SCRIPT");
+    var a = document.getElementById("MINGDAO_WIDGET_SCRIPT");
     if (a) {
         a.parentNode.removeChild(a)
     }
     a = document.createElement("script");
     a.setAttribute("charset", "utf-8");
-    a.setAttribute("id", "HUABAN_WIDGET_SCRIPT");
+    a.setAttribute("id", "MINGDAO_WIDGET_SCRIPT");
     a.innerText = c.replace(/\s{2,}/g, " ");
     document.body.appendChild(a);
-    var b = document.getElementById("HUABAN_WIDGET_SCRIPT");
+    var b = document.getElementById("MINGDAO_WIDGET_SCRIPT");
     if (b) {
         b.parentNode.removeChild(b)
     }
 };
-//var insertBookmarklet = function (c, b) {
-//    var a = "    (function(w,g,m,i,d){      w[g]=w[g]||{};      w[g].via=7;      w[g].autoInitialize=false;      w[g].autoAttachFloatingButton=i;      w[g].imageMinWidth=m;      w['__huaban_dev']=d;    }(window,'" + global_settings + "'," + c.minWidth + "," + c.isToggleOn + ",'" + DOMAIN + "'));";
-//    var b = a + b;
-//    console.log(b);
-//    insertScript(b)
-//};
+var insertBookmarklet = function (c, b) {
+    var imgBase = chrome.extension.getURL('images');
+    var a = "    (function(window,global_settings,width,toggle,domain){      window[global_settings]=window[global_settings]||{};   window[global_settings].imgBase='" + imgBase + "';   window[global_settings].via=7;      window[global_settings].autoInitialize=false;      window[global_settings].autoAttachFloatingButton=toggle;     window[global_settings].imageMinWidth=width;      window['__mingdao_dev']=domain;    }(window,'" + global_settings + "'," + c.minWidth + "," + c.isToggleOn + ",'" + DOMAIN + "'));";
+    var b = a + b;
+    insertScript(b)
+};
 var sendMsgToPopup = function () {
     setTimeout(function () {
         chrome.runtime.sendMessage({
@@ -32,24 +32,22 @@ var sendMsgToPopup = function () {
     },
     300)
 };
-sendMsgToPopup();
-//chrome.runtime.sendMessage({
-//    msg: "settings"
-//}, function (a) {
-//    var b = a;
-    
-//    //不需要请求icon了
-//    chrome.runtime.sendMessage({
-//        msg: "bookmarklet"
-//    },
-//    function (c) {
-//        console.dir(c);
-//        insertBookmarklet(b, c && c.code);
-//        sendMsgToPopup()
-//    })
-//});
+//chrome.runtime.sendMessage({ msg: "bookmarklet" }, function (c) {
+//    insertBookmarklet(b, c && c.code);
+//    sendMsgToPopup()
+//})
+chrome.runtime.sendMessage({
+    msg: "settings"
+}, function (a) {
+    var b = a;
+   
+    chrome.runtime.sendMessage({msg: "bookmarklet"},function (c) {
+        insertBookmarklet(b, c && c.code);
+        sendMsgToPopup()
+    })
+});
 var takeAction = function (b) {
-    var a = "    (function(w,d,g,a) {      w[g] && w[g]['interface'] && w[g]['interface'][a]();      var el = d.getElementById('HUABAN_WIDGET_SCRIPT');      el.parentNode.removeChild(el);    })(window,document,'" + global + "','" + b + "');";
+    var a = "    (function(window,document,global,method) {      window[global] && window[global]['interface'] && window[global]['interface'][method]();      var el = document.getElementById('MINGDAO_WIDGET_SCRIPT');      el.parentNode.removeChild(el);    })(window,document,'" + global + "','" + b + "');";
     insertScript(a)
 };
 var attachFloatingButton = function () {
@@ -62,9 +60,9 @@ var showValidImages = function () {
     takeAction("show")
 };
 var pinImage = function (b) {
-    var a = "    (function(w,d,g,a,t) {      w[g] && w[g]['interface'] && w[g]['interface'][a](t);      var el = d.getElementById('HUABAN_WIDGET_SCRIPT');      el.parentNode.removeChild(el);    })(window,document,'" + global + "','pinImageUrl','" + b + "');";
+    var a = "    (function(winwow,document,global,method,param) {      window[global] && window[global]['interface'] && window[global]['interface'][method](param);      var el = document.getElementById('MINGDAO_WIDGET_SCRIPT');      el.parentNode.removeChild(el);    })(window,document,'" + global + "','pinImageUrl','" + b + "');";
     insertScript(a); (function () {
-        var f = document.getElementById("HUABAN_MESSAGE");
+        var f = document.getElementById("MINGDAO_MESSAGE");
         try {
             var d = f.innerText;
             d = JSON.parse(d);
