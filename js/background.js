@@ -1,5 +1,6 @@
 ﻿"use strict";
-//var bookmarkletUrl = "https://huaban.com/js/widgets.min.js?" + Math.floor(new Date() / 10000000); (function () {
+var bookmarkletUrl = chrome.extension.getURL('js/weight.js?') + Math.floor(new Date() / 10000000);
+//(function () {
 //    var a = localStorage.toggle == "off" ? "/images/logo_48_gray.png" : "/images/logo_48.png";
 //    chrome.browserAction.setIcon({
 //        path: a
@@ -56,18 +57,18 @@ chrome.runtime.onMessage.addListener(function (f, g, c) {
                 minWidth: b
             });
             break;
-        //case "bookmarklet":
-        //    ajax({
-        //        url:
-        //        bookmarkletUrl,
-        //        parameters: {},
-        //        success: function (e) {
-        //            c({
-        //                code: e
-        //            })
-        //        }
-        //    });
-        //    return true;
+        case "bookmarklet":
+            ajax({
+                url:
+                bookmarkletUrl,
+                parameters: {},
+                success: function (e) {
+                    c({
+                        code: e
+                    })
+                }
+            });
+            return true;
         case "isShortCutEnabled":
             c({
                 isShortCutEnabled:

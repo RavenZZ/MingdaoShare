@@ -35,9 +35,9 @@ var page = {
     originalViewPortWidth: document.documentElement.clientWidth,
     defaultScrollBarWidth: 17,
     hookBodyScrollValue: function (a) {
-        document.documentElement.setAttribute("__huaban_screen_capture_need_hook_scroll_value__", a);
+        document.documentElement.setAttribute("__mingdao_screen_capture_need_hook_scroll_value__", a);
         var b = document.createEvent("Event");
-        b.initEvent("__huaban_screen_capture_check_hook_status_event__", true, true);
+        b.initEvent("__mingdao_screen_capture_check_hook_status_event__", true, true);
         document.documentElement.dispatchEvent(b)
     },
     isScrollToPageEnd: function (c) {
@@ -464,7 +464,7 @@ var page = {
         100)
     },
     createFloatLayer: function () {
-        page.createDiv(document.body, "huaban_collector_protector")
+        page.createDiv(document.body, "mingdao_collector_protector")
     },
     matchMarginValue: function (a) {
         return a.match(/\d+/)
@@ -487,11 +487,11 @@ var page = {
                     return false
                 }
             }
-            h.classList.add("__huaban-fixed-position")
+            h.classList.add("__mingdao-fixed-position")
         });
-        var f = "__huaban_fix_fixed";
+        var f = "__mingdao_fix_fixed";
         if (!document.getElementById(f)) {
-            var e = ".__huaban-fixed-position {position: absolute !important;z-index:5000 !important;}";
+            var e = ".__mingdao-fixed-position {position: absolute !important;z-index:5000 !important;}";
             var d = document.createElement("style");
             d.id = f; (document.getElementsByTagName("head")[0] || document.body).appendChild(d);
             d.styleSheet ? d.styleSheet.cssText = e : d.appendChild(document.createTextNode(e))
@@ -501,7 +501,7 @@ var page = {
     unfixFixed: function () {
         if (this.fixed_els && this.fixed_els.length) {
             this.fixed_els.forEach(function (a) {
-                a.classList.remove("__huaban-fixed-position")
+                a.classList.remove("__mingdao-fixed-position")
             })
         }
         page.unfixedPosition()
@@ -512,13 +512,13 @@ var page = {
             document.getElementsByTagName("body")[0].style.setProperty("position", "relative")
         } else {
             if (contains(["behance.net"], b)) {
-                document.getElementById("showcase-and-discover").classList.remove("__huaban-fixed-position");
+                document.getElementById("showcase-and-discover").classList.remove("__mingdao-fixed-position");
                 document.getElementById("infinity-footer").style.display = "none";
                 document.getElementById("sorts-container").style.display = "none"
             } else {
-                if (contains(["huaban.com"], b)) {
+                if (contains(["mingdao.com"], b)) {
                     var a = document.getElementById("header");
-                    a.classList.remove("__huaban-fixed-position");
+                    a.classList.remove("__mingdao-fixed-position");
                     a.style.setProperty("position", "relative", "important")
                 }
             }
@@ -533,7 +533,7 @@ var page = {
                 document.getElementById("infinity-footer").style.display = "block";
                 document.getElementById("sorts-container").style.display = "block"
             } else {
-                if (contains(["huaban.com"], a)) {
+                if (contains(["mingdao.com"], a)) {
                     document.getElementById("header").style.setProperty("position", "fixed")
                 }
             }
@@ -545,7 +545,7 @@ var page = {
         }
     },
     createSelectionArea: function () {
-        var g = $("huaban_collector_protector");
+        var g = $("mingdao_collector_protector");
         var e = page.getZoomLevel();
         var a = window.getComputedStyle(document.body, null);
         if ("relative" == a.position) {
@@ -565,8 +565,8 @@ var page = {
         page.createDiv(g, "hc_dragshadow_b", "hc-dragshadow");
         page.createDiv(g, "hc_dragshadow_l", "hc-dragshadow");
         page.createDiv(g, "hc_dragshadow_r", "hc-dragshadow");
-        var f = page.createDiv(g, "huaban_collector_container");
-        var b = page.createDiv(f, "huaban_collector_boundary");
+        var f = page.createDiv(g, "mingdao_collector_container");
+        var b = page.createDiv(f, "mingdao_collector_boundary");
         page.createDiv(f, "hc_drag_size");
         page.createDiv(b, "hc_dragline_t", "hc-dragline");
         page.createDiv(b, "hc_dragline_d", "hc-dragline");
@@ -611,7 +611,7 @@ var page = {
                 page.endY = l + i
             };
             var c = function (i) {
-                if ((i.pageX - b == 0 || i.pageY - a == 0) && $("huaban_collector_container").offsetWidth == 0) {
+                if ((i.pageX - b == 0 || i.pageY - a == 0) && $("mingdao_collector_container").offsetWidth == 0) {
                     var h = b - MIN_WIDTH / 2;
                     var j = a - MIN_WIDTH / 2;
                     page.updateShadow(h, j, MIN_WIDTH, MIN_WIDTH);
@@ -647,8 +647,8 @@ var page = {
             page.isMouseDown = true;
             var b = d.pageX;
             var a = d.pageY;
-            var e = $("huaban_collector_container");
-            var f = $("huaban_collector_protector");
+            var e = $("mingdao_collector_container");
+            var f = $("mingdao_collector_protector");
             page.pageHeight = f.clientHeight;
             page.pageWidth = f.clientWidth;
             page.updateShadow(b, a, 0, 0);
@@ -658,7 +658,7 @@ var page = {
         }
     },
     bindDragResize: function () {
-        var a = $("huaban_collector_container");
+        var a = $("mingdao_collector_container");
         page.createDiv(a, "hc_dragdot_tl", "hc-dragdot").setAttribute("data-direct", "tl");
         page.createDiv(a, "hc_dragdot_tr", "hc-dragdot").setAttribute("data-direct", "tr");
         page.createDiv(a, "hc_dragdot_br", "hc-dragdot").setAttribute("data-direct", "br");
@@ -671,10 +671,10 @@ var page = {
         page.createDiv(a, "hc_dragbar_r", "hc-dragbar").setAttribute("data-direct", "mr");
         page.createDiv(a, "hc_dragbar_b", "hc-dragbar").setAttribute("data-direct", "mb");
         page.createDiv(a, "hc_dragbar_l", "hc-dragbar").setAttribute("data-direct", "ml");
-        $("huaban_collector_protector").addEventListener("mousedown", page.onMouseDown, false);
+        $("mingdao_collector_protector").addEventListener("mousedown", page.onMouseDown, false);
         document.addEventListener("mousemove", page.onMouseMove, false);
         document.addEventListener("mouseup", page.onMouseUp, false);
-        $("huaban_collector_boundary").addEventListener("dblclick",
+        $("mingdao_collector_boundary").addEventListener("dblclick",
         function () {
             page.removeSelectionArea();
             page.sendMessage({
@@ -690,12 +690,12 @@ var page = {
                 var a = b.tagName;
                 if (a && document) {
                     page.isMouseDown = true;
-                    var e = $("huaban_collector_container");
+                    var e = $("mingdao_collector_container");
                     var d = event.pageX;
                     var c = event.pageY;
                     var f = page.direct = b.getAttribute("data-direct");
                     if (e) {
-                        if (b == $("huaban_collector_boundary")) {
+                        if (b == $("mingdao_collector_boundary")) {
                             page.moving = true;
                             page.moveX = d - e.offsetLeft;
                             page.moveY = c - e.offsetTop
@@ -757,7 +757,7 @@ var page = {
     onMouseMove: function () {
         var f = event.target;
         if (f && page.isMouseDown) {
-            var j = $("huaban_collector_container");
+            var j = $("mingdao_collector_container");
             if (j) {
                 var b = event.pageX;
                 var i = event.pageY;
@@ -893,7 +893,7 @@ var page = {
     },
     updateShadow: function (h, g, d, b) {
         var e = page.getZoomLevel();
-        var f = $("huaban_collector_protector");
+        var f = $("mingdao_collector_protector");
         f.style.width = Math.round((document.body.scrollWidth + parseInt(page.marginLeft)) / e) + "px";
         f.style.height = Math.round((document.body.scrollHeight + parseInt(page.marginTop)) / e) + "px";
         page.pageHeight = f.clientHeight;
@@ -916,7 +916,7 @@ var page = {
         $("hc_dragshadow_b").style.width = a + "px"
     },
     updateArea: function (e, d, b, a) {
-        var c = document.getElementById("huaban_collector_container");
+        var c = document.getElementById("mingdao_collector_container");
         c.style.left = e + "px";
         c.style.top = d + "px";
         c.style.width = Math.abs(b) + "px";
@@ -929,11 +929,11 @@ var page = {
         page.unfixFixed();
         page.attachFloatingButton();
         document.querySelector("body").classList.remove("hb-no-user-select");
-        $("huaban_collector_protector").removeEventListener("mousedown", page.onMouseDown, false);
+        $("mingdao_collector_protector").removeEventListener("mousedown", page.onMouseDown, false);
         document.removeEventListener("keydown", page.escKeyDown, false);
         document.removeEventListener("mousemove", page.onMouseMove, false);
         document.removeEventListener("mouseup", page.onMouseUp, false);
-        $("huaban_collector_boundary").removeEventListener("dblclick",
+        $("mingdao_collector_boundary").removeEventListener("dblclick",
         function () {
             page.removeSelectionArea();
             page.sendMessage({
@@ -941,8 +941,8 @@ var page = {
             })
         },
         false);
-        page.removeElement("huaban_collector_protector");
-        page.removeElement("huaban_collector_container");
+        page.removeElement("mingdao_collector_protector");
+        page.removeElement("mingdao_collector_container");
         page.isSelectionAreaTurnOn = false
     },
     createDiv: function (c, d, b) {
@@ -979,9 +979,9 @@ var page = {
         }
     },
     init: function () {
-        //if (document.body.hasAttribute("huaban_collector_injected")) {
-        //    return
-        //}
+        if (document.body.hasAttribute("mingdao_collector_injected")) {
+            return
+        }
         if (isPageCapturable()) {
             page.sendMessage({
                 msg: "page_capturable"
