@@ -52,7 +52,26 @@ function popup(url) {
     页面直接点击
 */
 function pageMenuClick(info, tab) {
-    popup('login.html');
+    chrome.tabs.query(
+                {
+                    active: true,
+                    currentWindow: true
+                },
+                function (tabs) {
+                    var data = {
+                        type: 'link',
+                        info: info,
+                        tab: tab
+                    };
+                    window.localStorage.setItem('last', JSON.stringify(data));
+                    chrome.tabs.sendMessage(
+                        tabs[0].id,
+                        {
+                            msg: "showValidImages",
+                            fun: "createFrame"
+                        },
+                        function (response) { });
+                });
     console.log(JSON.stringify(info));
 }
 

@@ -66,6 +66,7 @@
                                 var result = JSON.parse(xhr.responseText);
                                 var token = result.access_token;// xhr.responseText.match(/access_token=([^&]*)/)[1];
                                 window.localStorage.setItem('token', token);
+                                window.location = '/share.html';
                                 //removeTab();
                             }
                         } else {
