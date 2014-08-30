@@ -57,10 +57,7 @@ var ShareButton = {
     }
 };
 var querySelector = function (str) {
-    return parent.document.querySelector(str) || $("share-to-mingdao").contentWindow.document.querySelector(str);
-}
-var $ = function (str) {
-    return parent.document.getElementById(str) || $("share-to-mingdao").contentWindow.document.getElementById(str);
+    return document.querySelector(str);
 }
 var PopupPicker = {
     init: function (c, a, b) {
@@ -210,22 +207,22 @@ var UploadUI = {
         if (a) {
             Mingdao.currentUserId = a.id
         }
-        querySelector("#pin_wrapper .box-title .close").addEventListener("click",
-        function (c) {
-            $("pin-done").style.display = "none";
-            querySelector("#dialog-box .pbt").style.display = "block";
-            var b = querySelector("#dialog-box .rbtn");
-            b.classList.remove("disabled");
-            b.innerText = "分享";
-            UploadUI.closeDialog();
-            c.preventDefault()
-        });
+        //querySelector("#pin_wrapper .box-title .close").addEventListener("click",
+        //function (c) {
+        //    $("pin-done").style.display = "none";
+        //    querySelector("#dialog-box .pbt").style.display = "block";
+        //    var b = querySelector("#dialog-box .rbtn");
+        //    b.classList.remove("disabled");
+        //    b.innerText = "分享";
+        //    UploadUI.closeDialog();
+        //    c.preventDefault()
+        //});
         UploadUI.initSave();
         UploadUI.initBoards();
         ShareButton.init()
     },
     dataURItoBlobLink: function () {
-        var e = parent.photoshop.getDataUrl();
+        var e = photoshop.getDataUrl();
         var f = atob(e.split(",")[1]);
         var b = e.split(",")[0].split(":")[1].split(";")[0];
         var d = ajax.constructBlobData(f, b);
@@ -248,7 +245,12 @@ var UploadUI = {
         })
     },
     showErrorInfo: function (a) {
-        $("msg").innerHTML = a;
+        var msg_bar = $("msg_bar");
+        if (!msg_bar) {
+            alert(a);
+            return;
+        }
+        $("msg_bar").innerHTML = a;
         $("msg_bar").style.display = "block";
         $("msg_bar").style.top = 0;
         setTimeout(function () {
@@ -287,7 +289,7 @@ var UploadUI = {
                 if (!Mingdao.getUser(d)) {
                     Mingdao.currentUserId = d;
                     Mingdao.addUser(a);
-                    parent.UploadUI.showUser(a);
+                    UploadUI.showUser(a);
                     UploadUI.fillBoards(e)
                 }
             } else {
@@ -433,10 +435,10 @@ var UploadUI = {
                         });
                         return false
                     };
-                    $("close_window").addEventListener("click",
-                    function () {
-                        UploadUI.closeDialog();
-                    });
+                    //$("close_window").addEventListener("click",
+                    //function () {
+                    //    Page.closeDialog();
+                    //});
                     w.style.display = "block";
                     var A = querySelector("a.less");
                     //A.innerText = y.board.title;
@@ -465,21 +467,21 @@ var UploadUI = {
         m.addEventListener("focus", d);
         m.addEventListener("blur", d)
     },
-    showUser: function (b) {
-        var loadding = parent.$("loading") || cc("loading"),
-            authorization = parent.$("authorization") || cc("authorization"),
-            pinform = querySelector(".pin-form");
-            
+    showShare: function (b) {
+        var loadding = $("loading"),
+           authorization = $("authorization"),
+           pinform = querySelector(".pin-form");
+
         loadding.style.display = "none";
         authorization.style.display = "none";
-
         pinform.style.display = "block";
-
         if (b && b.bindings && b.bindings.weibo) {
             querySelector(".pin-form .buttons label.weibo").style.display = "block"
         } else {
             querySelector(".pin-form .buttons label.weibo").style.display = "none"
         }
+    },
+    showUser: function (b) {
         var f = $("user_icon");
         var c = document.createElement("a");
         c.href = Utils.getUserUrl(b);
@@ -523,23 +525,8 @@ var UploadUI = {
         querySelector(".pin-form").style.display = "none"
     },
     getImageData: function () {
-        var a = parent.photoshop.getDataUrl();
+        var a = Mingdao.getCanvas();
         return atob(a.split(",")[1])
-    },
-    showDialog: function () {
-        var a = parent.$("overlay");
-        a.style.width = parent.document.body.scrollWidth + "px";
-        a.style.height = parent.document.body.scrollHeight + "px";
-        a.style.display = "block";
-        //$("share-to-mingdao").src = chrome.extension.getURL("share.html");
-        $("pin_wrapper").style.display = "block"
-    },
-    closeDialog: function () {
-        var a = parent.$("overlay");
-        a.style.width = document.body.scrollWidth + "px";
-        a.style.height = document.body.scrollHeight + "px";
-        a.style.display = "none";
-        parent.$("pin_wrapper").style.display = "none"
     }
 };
 if (typeof chrome.tabs != 'undefined') {

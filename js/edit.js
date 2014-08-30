@@ -228,9 +228,6 @@ var Canvas = (function () {
         }
     }
 }());
-var cc = function (id) {
-    return $("share-to-mingdao").contentWindow.$(id);
-}
 var photoshop = {
     canvas: document.createElement("canvas"),
     tabTitle: "",
@@ -1382,9 +1379,14 @@ var photoshop = {
 };
 window.addEventListener("load", function () {
     photoshop.init();
-    $("photo").addEventListener("mousedown", parent.photoshop.onMouseDown, false);
-   $("photo").addEventListener("mousemove", parent.photoshop.onMouseMove, false);
-    $("photo").addEventListener("mouseup", parent.photoshop.onMouseUp, false);
+    $("photo").addEventListener("mousedown", photoshop.onMouseDown, false);
+    $("photo").addEventListener("mousemove", photoshop.onMouseMove, false);
+    $("photo").addEventListener("mouseup", photoshop.onMouseUp, false);
+    document.querySelector("#pin_wrapper .box-title .close").addEventListener("click",
+            function (event) {
+                Page.closeDialog();
+                event.preventDefault()
+            });
     $("canvas").addEventListener("selectstart",
     function () {
         return false
@@ -1394,7 +1396,7 @@ window.addEventListener("load", function () {
         return false
     });
     setTimeout(function () {
-        UploadUI.showDialog()
+        Page.showDialog()
     },
     100);
     var a = Mingdao.getUser();
@@ -1412,15 +1414,17 @@ window.addEventListener("load", function () {
     } else {
         c.src = $("canvas").toDataURL("image/png")
     }
+    Mingdao.setCanvas(c.src);
     $("btn_upload").addEventListener("click",
     function (d) {
         photoshop.draw();
         if (localStorage.screenshotFormat == "jpeg") {
-            c.src = parent.$("canvas").toDataURL("image/jpeg", 1)
+            c.src = $("canvas").toDataURL("image/jpeg", 1)
         } else {
-            c.src = parent.$("canvas").toDataURL("image/png")
+            c.src = $("canvas").toDataURL("image/png")
         }
-        UploadUI.showDialog();
+        Mingdao.setCanvas(c.src);
+        Page.showDialog();
         photoshop.finish();
         d.preventDefault()
     });
@@ -1434,5 +1438,8 @@ window.addEventListener("load", function () {
             chrome.tabs.remove(e[0].id)
         });
         d.preventDefault()
-    })
+    });
+
+    document.body.addEventListener("mousemove", photoshop.onMouseMove, false);
+    document.body.addEventListener("mouseup", photoshop.onMouseUp, false);
 });

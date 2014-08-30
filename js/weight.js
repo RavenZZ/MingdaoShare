@@ -1820,12 +1820,12 @@ function () {
                         '<a href="javascript:void(0);" class="close"><i></i></a>',
                         '<div class="text">分享到明道</div>',
                         '<div id="user_icon" style="display: block;">',
-                        '<a href="http://mingdao.com/uzayg1kh74" target="_blank">',
-                        '<img src="//:0">明道</a><span title="移除授权"></span></div>',
+                        '<a href="javascript:void(0);" target="_blank">',
                         '</div>',
-                        '<iframe id="share-to-mingdao" src="' + MINGDAO_PRESETTINGS .shareUrl + '" frameborder="0" width="580" height="300"></iframe></div>',
+                        '</div>',
+                        '<iframe id="share-to-mingdao" sandbox="allow-same-origin allow-scripts" src="about:blank" frameborder="0" width="580" height="300"></iframe></div>',
                         '<div id="overlay" style="width: 1920px; height: 949px; display: none;"></div>'
-                    ];
+                ];
                     wrapper.innerHTML = html.join("");
                     c.$append(a.ui.holderEl,wrapper);
                 },

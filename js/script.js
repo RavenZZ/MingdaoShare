@@ -23,7 +23,12 @@ var insertBookmarklet = function (c, b) {
     var shareUrl=chrome.extension.getURL("share.html") ;
     var a = "    (function(window,global_settings,width,toggle,domain){      window[global_settings]=window[global_settings]||{};   window[global_settings].imgBase='" + imgBase + "'; window[global_settings].shareUrl='" + shareUrl + "';   window[global_settings].via=7;      window[global_settings].autoInitialize=false;      window[global_settings].autoAttachFloatingButton=toggle;     window[global_settings].imageMinWidth=width;      window['__mingdao_dev']=domain;    }(window,'" + global_settings + "'," + c.minWidth + "," + c.isToggleOn + ",'" + DOMAIN + "'));";
     var b = a + b;
-    insertScript(b)
+    insertScript(b);
+    document.querySelector("#pin_wrapper .box-title .close").addEventListener("click",
+            function (event) {
+                Page.closeDialog();
+                event.preventDefault()
+            });
 };
 var sendMsgToPopup = function () {
     setTimeout(function () {

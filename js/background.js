@@ -500,7 +500,7 @@ function pageMenuClick(info, tab) {
                         info: info,
                         tab: tab
                     };
-                    window.localStorage.setItem('last', JSON.stringify(data));
+                    Mingdao.setPageData(JSON.stringify(data));
                     chrome.tabs.sendMessage(
                         tabs[0].id,
                         {
@@ -508,7 +508,6 @@ function pageMenuClick(info, tab) {
                         },
                         function (response) { });
                 });
-    console.log(JSON.stringify(info));
 }
 
 /*

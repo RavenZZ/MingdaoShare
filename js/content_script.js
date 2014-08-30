@@ -972,7 +972,7 @@ var page = {
         return a
     },
     createFrame: function () {
-        UploadUI.showDialog();
+        Page.showDialog();
     },
     removeElement: function (a) {
         if ($(a)) {

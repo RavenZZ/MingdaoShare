@@ -7,7 +7,8 @@
 		  "js/ajax.js",
 		  "js/background.js",
 		  "js/hotkeys.js",
-		  "js/utils.js"
+		  "js/utils.js",
+		  "js/mingdao.js"
 	  ]
    },
   "manifest_version": 2,
@@ -32,13 +33,13 @@
 		 "exclude_globs": [ "http://huaban.com*", "http://www.huaban.com*"],
 		 "include_globs": [ "*" ],
 		 "matches":["<all_urls>"],
-		"css": [ "css/capture.css","css/edit.css" ],
+		"css": [ "css/capture.css","css/page.css" ],
         "js":[
 			"js/isload.js",
 			"js/content_script.js",
 			"js/script.js",
 			"js/shortcut.js",
-			"js/edit.js",
+			"js/page.js",
 			"js/upload_ui.js"
 			],
         "run_at":"document_end",

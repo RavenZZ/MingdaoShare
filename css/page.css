@@ -1,0 +1,88 @@
+﻿.share-dialog
+{
+    position:fixed;
+	left:50%;
+	top:30%;
+	width:580px;
+	margin-left:-290px;
+	background:#fff;
+	z-index:401;
+	box-shadow:0 2px 5px rgba(0,0,0,.3);
+}
+.share-dialog .box-title {
+	position:relative;
+	padding:12px 0 12px 31px;
+	height:26px;
+	line-height:50px;
+	font-size:18px;
+	border-bottom:1px solid #EDEDED;
+	padding-left:20px;
+}
+.share-dialog .box-title .close {
+	position:absolute;
+	right:0;
+	top:0;
+	width:50px;
+	height:50px;
+	cursor:pointer;
+}
+.share-dialog .box-title .close i {
+	width:20px;
+	height:20px;
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin:-10px 0 0 -10px;
+	background:url(chrome-extension://__MSG_@@extension_id__/images/close.png) 0 0 no-repeat;
+}
+.share-dialog .box-title .close:hover i {
+	background-position:0 -30px;
+}
+.share-dialog .box-title .close:active span {
+	background-position:0 -60px;
+}
+.share-dialog .box-title .text {
+	margin:0;
+	padding-left:50px;
+	font-size:18px;
+	line-height:26px;
+	background:url(chrome-extension://__MSG_@@extension_id__/images/logo.png) no-repeat 0 50%;
+	float:left;
+}
+.share-dialog .box-title #user_icon {
+	display:block;
+	color:#524D4D;
+	height:26px;
+	line-height:26px;
+	padding:0 16px 0 10px;
+	font-size:13px;
+	text-shadow:0 1px rgba(255,255,255,1);
+	position:relative;
+	padding-left:38px;
+	float:right;
+	margin-right:64px;
+}
+.share-dialog .box-title #user_icon img {
+	width:20px;
+	height:20px;
+	border:1px solid #CCC;
+	position:absolute;
+	left:10px;
+	top:2px;
+}
+.share-dialog .box-title #user_icon span {
+	cursor:pointer;
+	position:absolute;
+	top:4px;
+	width:20px;
+	height:20px;
+	background-image:url(chrome-extension://__MSG_@@extension_id__/images/sign_out_16.png);
+	background-position:1000% 1000%;
+	background-repeat:no-repeat;
+}
+.share-dialog .box-title #user_icon:hover span {
+	background-position:center 2px;
+}
+.share-dialog .box-title #user_icon:active span {
+	background-position:center -14px;
+}

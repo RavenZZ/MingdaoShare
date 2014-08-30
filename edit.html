@@ -5,10 +5,12 @@
     <meta charset="utf-8">
     <meta name="copyright" content="mingdao.com">
     <link href="css/edit.css" rel="stylesheet" type="text/css">
-    <script src="js/utils.js"></script>
-    <script src="js/mingdao.js"></script>
-    <script src="js/upload_ui.js"></script>
-    <script src="js/ajax.js"></script>
+    <script src="js/utils.js" type="text/javascript"></script>
+    <script src="js/mingdao.js" type="text/javascript"></script>
+    <script src="js/upload_ui.js" type="text/javascript"></script>
+    <script src="js/ajax.js" type="text/javascript"></script>
+    <script src="js/page.js" type="text/javascript"></script>
+    <script src="js/edit.js" type="text/javascript"></script>
   </head>
   <body>
     <header id="header">
@@ -87,18 +89,20 @@
           </div>
         <div id="pin_wrapper" class="share-dialog" style="display:none;">
             <div class="box-title">
-              <a href="edit.html#" class="close"><i></i></a>
-              <div class="text">分享到明道</div>
-              <div id="user_icon" style="display: block;"><a href="http://mingdao.com/uzayg1kh74" target="_blank"><img src="//:0">朱志远-明道</a><span title="移除授权"></span></div>
+                <div class="text">分享到明道</div>
+                <div id="user_icon" style="display: block;">
+                  <!--<a href="http://mingdao.com/uzayg1kh74" target="_blank"><img src="//:0">朱志远-明道</a><span title="移除授权"></span>-->
+              </div>
+              <a href="javascript:void(0);" class="close"><i></i></a>
             </div>
-            <iframe id="share-to-mingdao" src="about:blank" FRAMEBORDER="0" width="580" height="300"></iframe>
+            <iframe id="share-to-mingdao" src="share.html" FRAMEBORDER="0" width="580" height="300"></iframe>
         </div>
     </div>
     <div id="overlay" style="width: 1920px; height: 949px; display: none;"></div>
     <div id="msg_bar">
       <div class="msg-wrapper"><div id="msg" class="msg-inner"></div></div>
     </div>
-    <script src="js/edit.js"></script>
+    
   
 
 </body></html>

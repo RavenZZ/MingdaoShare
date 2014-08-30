@@ -73,11 +73,35 @@
                 return new Date().getTime() >= m
             }
             return false
+        },
+        setCanvas: function (data) {
+            localStorage.setItem("canvas", data);
+        },
+        getCanvas: function () {
+            return localStorage.getItem("canvas");
+        },
+        getPageData: function () {
+            return localStorage.getItem("pagedata");
+        },
+        setPageData: function (data) {
+            localStorage.setItem("pagedata", data);
         }
     };
     var b = window.Mingdao = {
         currentUserId: null,
         redirectUrl: callbackUrl,
+        setCanvas: function (data) {
+            c.setCanvas(data);
+        },
+        getCanvas: function () {
+            return c.getCanvas();
+        },
+        getPageData: function () {
+            return c.getPageData();
+        },
+        setPageData: function (data) {
+            c.setPageData(data);
+        },
         accessTokenCallback: null,
         getToken: function () {
             return c.getToken();
