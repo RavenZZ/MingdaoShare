@@ -45,6 +45,7 @@ function createMenu() {
         "onclick": imgMenuClick
     });
 }
+
 function popup(url) {
     window.open(url, "window", "width=600,height=400,status=yes,scrollbars=yes,resizable=yes");
 }

@@ -1,8 +1,15 @@
 ﻿(function () {
     "use strict";
-    var $ = function (id) {
-        return document.getElementById(id);
-    }
+    var enableCapture = function () {
+        $("capture-area-item").classList.remove("disabled");
+        $("capture-viewport-item").classList.remove("disabled");
+        $("capture-fullpage-item").classList.remove("disabled")
+    };
+    var disableCapture = function () {
+        $("capture-area-item").classList.add("disabled");
+        $("capture-viewport-item").classList.add("disabled");
+        $("capture-fullpage-item").classList.add("disabled")
+    };
     var Menu = {
         init: function () { },
         shareLink: function () { },
@@ -27,22 +34,118 @@
                     chrome.tabs.sendMessage(
                         tabs[0].id,
                         {
-                            msg: "showValidImages",
-                            fun: "createFrame"
+                            msg: "shareDocumentUrl"
                         },
-                        function (response) {});
+                        function (response) { });
                 });
-            //chrome.runtime.sendMessage({
-            //    msg: "ga",
-            //    type: "popup item",
-            //    value: "pinAll"
-            //},
-            //function () { });
             setTimeout(function () {
                 window.close()
             },
             100)
         });
+        var pinAllBtn = $("pin-all-btn");
+        pinAllBtn.addEventListener("click",
+        function () {
+            if (this.classList.contains("disabled")) {
+                return false
+            }
+            chrome.tabs.query({
+                active: true,
+                currentWindow: true
+            },
+            function (tabs) {
+                var tab = tabs[0];
+                var url = tab.url.replace(/^https?:\/\/(www)?/, "");
+                if (url.indexOf(DOMAIN) == 0) {
+                    return
+                }
+                chrome.tabs.sendMessage(i.id, {
+                    msg: "showValidImages"
+                },
+                function (response) { })
+            });
+            setTimeout(function () {
+                window.close()
+            },
+            100)
+        });
+        var captureAreaItem = $("capture-area-item");
+        var captureViewportItem = $("capture-viewport-item");
+        var captureFullpageItem = $("capture-fullpage-item");
+        captureAreaItem.classList.add("disabled");
+        captureViewportItem.classList.add("disabled");
+        captureFullpageItem.classList.add("disabled");
+
+        chrome.runtime.sendMessage({
+            msg: "isShortCutEnabled"
+        },
+        function (response) {
+            var elabled = response.isShortCutEnabled;
+            captureAreaItem.getElementsByClassName("prompt")[0].style.display = elabled ? "inline" : "none";
+            captureViewportItem.getElementsByClassName("prompt")[0].style.display = elabled ? "inline" : "none";
+            captureFullpageItem.getElementsByClassName("prompt")[0].style.display = elabled ? "inline" : "none"
+        });
+        captureAreaItem.addEventListener("click",
+        function () {
+            if (this.classList.contains("disabled")) {
+                return false
+            }
+            var background = chrome.extension.getBackgroundPage();
+            background.screenshot.showSelectionArea();
+            window.close()
+        });
+        captureViewportItem.addEventListener("click",
+           function () {
+               if (this.classList.contains("disabled")) {
+                   return false
+               }
+               var background = chrome.extension.getBackgroundPage();
+               background.screenshot.captureViewport();
+               window.close()
+           });
+        captureFullpageItem.addEventListener("click",
+         function () {
+             if (this.classList.contains("disabled")) {
+                 return false
+             }
+             var h = chrome.extension.getBackgroundPage();
+             h.screenshot.captureFullpage();
+             window.close()
+         });
+
+
+        chrome.tabs.query({
+            active: true,
+            currentWindow: true
+        },
+        function (i) {
+            var h = chrome.tabs.connect(i[0].id);
+            h.onMessage.addListener(function (j) {
+                if (j.msg == "capturable") {
+                    enableCapture()
+                } else {
+                    if (j.msg == "uncapturable") {
+                        disableCapture()
+                    } else {
+                        if (j.msg == "loading") { }
+                    }
+                }
+                if (j.msg == "pinable") {
+                    $("pin-all-btn").classList.remove("disabled")
+                } else {
+                    if (j.msg == "unpinable") {
+                        $("pin-all-btn").classList.add("disabled")
+                    }
+                }
+            });
+            h.postMessage({
+                msg: "is_page_capturable"
+            });
+            h.postMessage({
+                msg: "is_page_pinable"
+            })
+        })
+
     }
     document.addEventListener("DOMContentLoaded", Menu.init);
 }());

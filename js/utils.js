@@ -1,17 +1,17 @@
 "use strict";
-var DOMAIN = "huaban.com";
+var DOMAIN = "mingdao.com";
 var imgHosts = {
     hbimg: "img.hb.aicdn.com"
 };
 var Utils = {
-    getUserUrl: function (a) {
-        return "http://" + DOMAIN + "/" + a.urlname
+    getUserUrl: function (link) {
+        return "http://" + DOMAIN + "/" + link.urlname
     },
-    getImgUrl: function (a, b) {
-        return "http://" + imgHosts[a.bucket] + "/" + a.key + (b ? "_" + b : "")
+    getImgUrl: function (img, b) {
+        return "http://" + imgHosts[img.bucket] + "/" + img.key + (b ? "_" + b : "")
     },
-    i18nReplace: function (b, a) {
-        return $(b).innerHTML = chrome.i18n.getMessage(a)
+    i18nReplace: function (id, msg) {
+        return $(id).innerHTML = chrome.i18n.getMessage(msg)
     },
     isThisPlatform: function (a) {
         return navigator.userAgent.toLowerCase().indexOf(a) > -1
@@ -48,8 +48,8 @@ var Utils = {
         }
     }
 };
-function $(a) {
-    return document.getElementById(a)
+function $(id) {
+    return document.getElementById(id)
 }
 function $$(a) {
     return document.querySelectorAll(a)
