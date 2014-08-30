@@ -1,5 +1,5 @@
 "use strict";
-var bg = chrome.extension.getBackgroundPage();
+var bg = (chrome.extension && chrome.extension.getBackgroundPage) ? chrome.extension.getBackgroundPage() : window;
 var Canvas = (function () {
     var a = function (d, e) {
         var g = d.toLowerCase();

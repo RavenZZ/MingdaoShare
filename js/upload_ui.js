@@ -145,13 +145,13 @@ var BoardPicker = {
             this.boards = c;
             var a = {};
             c.forEach(function (d) {
-                BoardPicker._injectItem(d.board_id, d.title);
-                a[d.board_id] = d
+                BoardPicker._injectItem(d.id, d.name);
+                a[d.id] = d
             });
             BoardPicker._h_boards = a;
             this.select(this.listEl.querySelector("li"))
         } else {
-            this.curEl.innerHTML = "选择画板...";
+            this.curEl.innerHTML = "选择群组...";
             this.curEl.data = null
         }
         return this
@@ -225,7 +225,7 @@ var UploadUI = {
         ShareButton.init()
     },
     dataURItoBlobLink: function () {
-        var e = photoshop.getDataUrl();
+        var e = parent.photoshop.getDataUrl();
         var f = atob(e.split(",")[1]);
         var b = e.split(",")[0].split(":")[1].split(";")[0];
         var d = ajax.constructBlobData(f, b);
@@ -412,7 +412,7 @@ var UploadUI = {
             c.classList.add("disabled");
             var t = f.getSelected();
             if (!t) {
-                return alert("请选择画板")
+                return alert("请选择群组")
             }
             var r = $("description").value;
             var q = querySelector("input.publish_to_weibo").checked;
@@ -426,7 +426,7 @@ var UploadUI = {
                     var y = x;
                     var w = $("pin-done");
                     var B = $("view_pin");
-                    B.href = "http://" + DOMAIN + "/pins/" + y.pin_id;
+                    B.href = "http://" + DOMAIN + "/feeddetail?itemID=" + y.post;
                     B.onclick = function () {
                         chrome.tabs.create({
                             url: B.href
@@ -435,12 +435,12 @@ var UploadUI = {
                     };
                     $("close_window").addEventListener("click",
                     function () {
-                        window.close()
+                        UploadUI.closeDialog();
                     });
                     w.style.display = "block";
                     var A = querySelector("a.less");
-                    A.innerText = y.board.title;
-                    A.href = "http://" + DOMAIN + "/boards/" + y.board_id;
+                    //A.innerText = y.board.title;
+                    A.href = "#";
                     ShareButton.setPin(y);
                     return
                 } else {
@@ -451,7 +451,7 @@ var UploadUI = {
                     }
                 }
                 c.classList.remove("disabled");
-                c.innerText = "采下来"
+                c.innerText = "分享"
             })
         });
         var d = function () {
@@ -523,7 +523,7 @@ var UploadUI = {
         querySelector(".pin-form").style.display = "none"
     },
     getImageData: function () {
-        var a = photoshop.getDataUrl();
+        var a = parent.photoshop.getDataUrl();
         return atob(a.split(",")[1])
     },
     showDialog: function () {
@@ -531,7 +531,8 @@ var UploadUI = {
         a.style.width = parent.document.body.scrollWidth + "px";
         a.style.height = parent.document.body.scrollHeight + "px";
         a.style.display = "block";
-        parent.$("pin_wrapper").style.display = "block"
+        //$("share-to-mingdao").src = chrome.extension.getURL("share.html");
+        $("pin_wrapper").style.display = "block"
     },
     closeDialog: function () {
         var a = parent.$("overlay");
@@ -540,27 +541,30 @@ var UploadUI = {
         a.style.display = "none";
         parent.$("pin_wrapper").style.display = "none"
     }
-}; (function () {
-    var a;
-    chrome.tabs.query({
-        active: true,
-        currentWindow: true
-    },
-    function (b) {
-        a = b[0].id
-    });
-    chrome.runtime.onMessage.addListener(function (d, c) {
-        switch (d.msg) {
-            case "url_for_access_token":
-                var b = d.url;
-                if (Mingdao.isRedirectUrl(b)) {
-                    chrome.tabs.update(a, {
-                        selected: true
-                    });
-                    chrome.tabs.remove(c.tab.id);
-                    Mingdao.parseAccessToken(b)
-                }
-                break
-        }
-    })
-})();
+};
+if (typeof chrome.tabs != 'undefined') {
+    (function () {
+        var a;
+        chrome.tabs.query({
+            active: true,
+            currentWindow: true
+        },
+        function (b) {
+            a = b[0].id
+        });
+        chrome.runtime.onMessage.addListener(function (d, c) {
+            switch (d.msg) {
+                case "url_for_access_token":
+                    var b = d.url;
+                    if (Mingdao.isRedirectUrl(b)) {
+                        chrome.tabs.update(a, {
+                            selected: true
+                        });
+                        chrome.tabs.remove(c.tab.id);
+                        Mingdao.parseAccessToken(b)
+                    }
+                    break
+            }
+        })
+    })();
+}

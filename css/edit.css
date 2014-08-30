@@ -115,7 +115,7 @@ textarea:focus,input:focus {
 	width:20px;
 	height:20px;
 	vertical-align:bottom;
-	background:url(/images/icons.svg) no-repeat;
+	background:url(chrome-extension://__MSG_@@extension_id__/images/icons.svg) no-repeat;
 }
 .tool-icon {
 	margin:6px 0;
@@ -220,7 +220,7 @@ textarea:focus,input:focus {
 	display:inline-block;
 	width:20px;
 	height:20px;
-	background:url(/images/icons.svg) no-repeat;
+	background:url(chrome-extension://__MSG_@@extension_id__/images/icons.svg) no-repeat;
 	background-position:-80px 0;
 }
 #btn_close:hover {
@@ -273,7 +273,7 @@ textarea:focus,input:focus {
 	vertical-align:text-top;
 }
 #fonts_pad div.mark i {
-	background:url(/images/icons.svg) no-repeat 0 -440px;
+	background:url(chrome-extension://__MSG_@@extension_id__/images/icons.svg) no-repeat 0 -440px;
 }
 #colorpad {
 	position:relative;
@@ -626,7 +626,7 @@ textarea:focus,input:focus {
 	left:50%;
 	top:50%;
 	margin:-10px 0 0 -10px;
-	background:url(/images/close.png) 0 0 no-repeat;
+	background:url(chrome-extension://__MSG_@@extension_id__/images/close.png) 0 0 no-repeat;
 }
 .share-dialog .box-title .close:hover i {
 	background-position:0 -30px;
@@ -639,7 +639,7 @@ textarea:focus,input:focus {
 	padding-left:50px;
 	font-size:18px;
 	line-height:26px;
-	background:url(/images/logo.png) no-repeat 0 50%;
+	background:url(chrome-extension://__MSG_@@extension_id__/images/logo.png) no-repeat 0 50%;
 	float:left;
 }
 .share-dialog .box-title #user_icon {
@@ -669,7 +669,7 @@ textarea:focus,input:focus {
 	top:4px;
 	width:20px;
 	height:20px;
-	background-image:url(/images/sign_out_16.png);
+	background-image:url(chrome-extension://__MSG_@@extension_id__/images/sign_out_16.png);
 	background-position:1000% 1000%;
 	background-repeat:no-repeat;
 }
@@ -873,9 +873,7 @@ textarea:focus,input:focus {
 .rbtn
 {
     color: #fff;
-    background: url(../images/btn-share.png) no-repeat!important;
-    width: 188px;
-    height: 48px;
+    background: #0066cc!important;
 }
 .wbtn {
 	background:linear-gradient(#FAFAFA,#F2F2F2);
@@ -942,7 +940,7 @@ textarea:focus,input:focus {
 	padding:0;
 	box-shadow:0 0 0 1px rgba(0,0,0,.05);
 }
-*/ .image-picker .load {
+.image-picker .load {
 	position:absolute;
 	z-index:10;
 	top:50%;
@@ -951,7 +949,7 @@ textarea:focus,input:focus {
 	margin:-8px 0 0 -8px;
 }
 .image-picker .loading {
-	background:url(/images/ajaxload2.gif) no-repeat;
+	background:url(chrome-extension://__MSG_@@extension_id__/images/ajaxload2.gif) no-repeat;
 	background-position:center center;
 }
 .carousel-container {
@@ -997,11 +995,6 @@ textarea:focus,input:focus {
 	background:-webkit-linear-gradient(#FFF,#F7F7F7);
 	box-shadow:inset 0 1px 2px rgba(0,0,0,.05);
 }
-.board-picker .current:active {
-	background-color:#c21f24;
-	background:-webkit-linear-gradient(#F7F7F7,#F2F2F2);
-	box-shadow:inset 0 1px 2px rgba(0,0,0,.1);
-}
 .board-picker .current .name {
 	padding:7px 24px 7px 12px;
 	height:22px;
@@ -1009,23 +1002,16 @@ textarea:focus,input:focus {
 	overflow:hidden;
 	white-space:nowrap;
 }
-.board-picker .current:active .name {
-	color:#fff;
-	text-shadow:none;
-}
 .board-picker .down-arrow {
 	position:absolute;
 	top:14px;
 	right:14px;
 	width:11px;
 	height:9px;
-	background:url(/images/down_arrow.png) center top no-repeat;
+	background:url(chrome-extension://__MSG_@@extension_id__/images/down_arrow.png) center top no-repeat;
 }
 .board-picker:hover .down-arrow {
 	background-position:center;
-}
-.board-picker:active .down-arrow {
-	background-position:center bottom;
 }
 .board-list {
 	display:none;
@@ -1056,11 +1042,6 @@ textarea:focus,input:focus {
 .board-list li:hover {
 	color:#221919;
 	background-color:#F4F4F4;
-}
-.board-list li:active {
-	color:#fff;
-	background-color:#dc2d1b;
-	text-shadow:none;
 }
 .board-list li:first-child {
 	border-radius:2px 2px 0 0;
@@ -1122,7 +1103,7 @@ textarea:focus,input:focus {
 	font-weight:300;
 }
 #loading .authorising {
-	background:url(/images/load.gif) no-repeat;
+	background:url(chrome-extension://__MSG_@@extension_id__/images/load.gif) no-repeat;
 	width:16px;
 	height:16px;
 	margin:20px auto;
@@ -1169,10 +1150,10 @@ textarea:focus,input:focus {
 	height:20px;
 	line-height:20px;
 	padding-left:22px;
-	background:url(/images/icon_weibo_disable.png) no-repeat;
+	background:url(chrome-extension://__MSG_@@extension_id__/images/icon_weibo_disable.png) no-repeat;
 }
 .pin-form .buttons label.weibo.enabled span {
-	background-image:url(/images/icon_weibo.png);
+	background-image:url(chrome-extension://__MSG_@@extension_id__/images/icon_weibo.png);
 }
 .pin-form .buttons label input {
 	display:inline-block;
@@ -1208,7 +1189,7 @@ textarea:focus,input:focus {
 	text-align:center;
 }
 .pin-done h3 {
-	background:url(/images/icon_check.png) left center no-repeat;
+	background:url(chrome-extension://__MSG_@@extension_id__/images/icon_check.png) left center no-repeat;
 	padding-left:30px;
 	color:#444;
 	font-size:18px;
@@ -1241,7 +1222,7 @@ textarea:focus,input:focus {
 	line-height:22px;
 	padding-left:22px;
 	font-size:16px;
-	background:url("/images/share_icon_sprite.png") no-repeat;
+	background:url("chrome-extension://__MSG_@@extension_id__/images/share_icon_sprite.png") no-repeat;
 }
 #share_sinaweibo strong {
 	background-position:0 3px;

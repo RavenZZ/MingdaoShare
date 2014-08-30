@@ -993,6 +993,7 @@ function () {
             c.$style.set(k, "display", "none"),
             c.$append(document.body, k)
         }
+        
         a.MINGDAO_PRESETTINGS && c.$merge(e, MINGDAO_PRESETTINGS)
     }(window, MINGDAO_GLOBAL),
     function (a) {
@@ -1124,7 +1125,7 @@ function () {
                 c.className && (c.className = (a.settings.prefix + b.$string.trim(c.className)).replace(/\ /g, " " + a.settings.prefix))
             }),
             f.removeChild(g),
-            g
+            g;
         }
     }(MINGDAO_GLOBAL),
     function (a) {
@@ -1783,6 +1784,7 @@ function () {
                         a.ui.mainEl || a.ui.buildElements(),
                         c.$prepend(a.ui.holderEl, g),
                         c.$show(g);
+                        d.attachShareDialog();
                         var h = this.getElemSize(g);
                         c.$hide(g),
                         this.mouseMoveEvent = function (b) {
@@ -1809,6 +1811,23 @@ function () {
                             a.popup.single(b)
                         })
                     }
+                },
+                attachShareDialog: function () {
+                    var wrapper = c.$new('div');
+                    var html = [
+                        '<div id="pin_wrapper" style="display:none" class="share-dialog">',
+                        '<div class="box-title">',
+                        '<a href="javascript:void(0);" class="close"><i></i></a>',
+                        '<div class="text">分享到明道</div>',
+                        '<div id="user_icon" style="display: block;">',
+                        '<a href="http://mingdao.com/uzayg1kh74" target="_blank">',
+                        '<img src="//:0">明道</a><span title="移除授权"></span></div>',
+                        '</div>',
+                        '<iframe id="share-to-mingdao" src="' + MINGDAO_PRESETTINGS .shareUrl + '" frameborder="0" width="580" height="300"></iframe></div>',
+                        '<div id="overlay" style="width: 1920px; height: 949px; display: none;"></div>'
+                    ];
+                    wrapper.innerHTML = html.join("");
+                    c.$append(a.ui.holderEl,wrapper);
                 },
                 calButtonPos: function (b, c) {
                     var d = 0,
@@ -2108,7 +2127,7 @@ function () {
             },
             checkPermission: function () {
                 if (location.href.match(/^https?:\/\/mingdao.com/)) {
-                    var a = "你就在明道本站呢，可以直接分享本站图片。";
+                    var a = "你就在明道本站呢，不可以直接分享本站图片。";
                     return b.app && app.error ? app.error(a) : alert(a),
                     !0
                 }

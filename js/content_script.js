@@ -972,13 +972,7 @@ var page = {
         return a
     },
     createFrame: function () {
-        var iframe = document.createElement("iframe");
-        iframe.id = "mingdao-share";
-        iframe.src = chrome.extension.getURL('login.html');
-        iframe.width = 500;
-        iframe.height = 200;
-        iframe.frameBorder = 1;
-        document.body.appendChild(iframe);
+        UploadUI.showDialog();
     },
     removeElement: function (a) {
         if ($(a)) {

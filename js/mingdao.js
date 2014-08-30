@@ -7,7 +7,7 @@
    
     var acctountUrl = "http://api." + domain + "/passport/detail";
     var groupUrl = "http://api." + domain + "/group/my_joined";
-    var g = "http://api." + domain + "/pins/";
+    var g = "http://api." + domain + "/post/upload";
     var e = "Mingdao_Bobobee_Boundary";
     var j = function (m) {
         for (var n in m) {
@@ -157,21 +157,23 @@
         getBoards: function (m, o) {
             var n = "bearer " + m.accessToken;
             ajax({
-                url: h,
+                url: groupUrl,
                 headers: {
                     Authorization: n
                 },
                 parameters: {
-                    extra: "recommend_tags"
+                    access_token: m.accessToken,
+                    u_id: m.id,
+                    format: 'json'
                 },
                 success: function (p) {
                     if (p.err) {
                         return o("failure", p)
                     }
-                    var q = p.boards.filter(function (r) {
-                        return r.is_private != 2
-                    });
-                    return o("success", q)
+                    //var q = p.boards.filter(function (r) {
+                    //    return r.is_private != 2
+                    //});
+                    return o("success", p.groups)
                 }
             })
         },
@@ -215,7 +217,7 @@
                         headers: {},
                         parameters: { access_token: m.accessToken, u_id: m.id, format: "json" },
                         success: function (s) {
-                            o("success", m, s.boards)
+                            o("success", m, s.groups)
                         }
                     })
                 },
@@ -231,30 +233,28 @@
             var s = "Bearer " + r.accessToken;
             var v = new Date().getTime() + "." + localStorage.screenshotFormat;
             var q = "image/" + localStorage.screenshotFormat;
-            var o = {
-                access_token: s
-            };
+            x += '\n' + t;
             var u = {
                 boundary: e,
                 data: m,
                 value: v,
-                type: q
+                type: q,
+                name: 'p_img'
             };
             ajax({
                 url: g,
-                headers: o,
+                headers: {},
                 multipartData: u,
                 parameters: {
-                    via: 7,
-                    board_id: n,
-                    text: x,
-                    link: t,
-                    media_type: 2,
-                    weibo: p ? p : ""
+                    access_token: r.accessToken,
+                    g_id: n,
+                    p_msg: x,
+                    s_type: 1,
+                    format: 'json'
                 },
                 success: function (y) {
-                    if (y.pin) {
-                        w("success", y.pin)
+                    if (y.post) {
+                        w("success", y)
                     } else {
                         w("failure", y.msg || y)
                     }
