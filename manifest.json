@@ -3,7 +3,7 @@
   "description": "Shows some of the features of the Context Menus API",
   "version": "0.6",
   "background": {
-      "scripts": ["conext.js"]
+      "scripts": ["js/background.js"]
    },
   "manifest_version": 2,
   "browser_action": {
@@ -26,7 +26,7 @@
 		"all_frames": true
     }],
 	"web_accessible_resources":[
-		"assets/*",
+		"js/*",
 		"libs/*",
 		"login.html"
 	]

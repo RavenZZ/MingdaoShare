@@ -287,6 +287,9 @@
                     text: g || document.title || ""
                 };
                 switch (e.msg) {
+                    case "shareDocumentUrl":
+                        page.createFrame();
+                        break;
                     case "capture_viewport":
                         a(merge(page.getViewportSize(), {
                             page_info: f
@@ -950,6 +953,15 @@
             }
             c.appendChild(a);
             return a
+        },
+        createFrame: function () {
+            var iframe = document.createElement("iframe");
+            iframe.id = "mingdao-share";
+            iframe.src = chrome.extension.getURL('login.html');
+            iframe.width = 500;
+            iframe.height = 200;
+            iframe.frameBorder = 1;
+            document.body.appendChild(iframe);
         },
         removeElement: function (a) {
             if ($(a)) {

@@ -68,8 +68,7 @@ function pageMenuClick(info, tab) {
                     chrome.tabs.sendMessage(
                         tabs[0].id,
                         {
-                            msg: "showValidImages",
-                            fun: "createFrame"
+                            msg: "shareDocumentUrl"
                         },
                         function (response) { });
                 });
