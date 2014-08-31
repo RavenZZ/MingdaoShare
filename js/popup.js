@@ -20,29 +20,6 @@
         
     }
     Menu.init = function () {
-        var btnShareLink = $("btn-share-link");
-        btnShareLink.addEventListener("click", function (e) {
-            if (this.classList.contains("disabled")) {
-                return false
-            }
-            chrome.tabs.query(
-                {
-                    active: true,
-                    currentWindow: true
-                },
-                function (tabs) {
-                    chrome.tabs.sendMessage(
-                        tabs[0].id,
-                        {
-                            msg: "shareDocumentUrl"
-                        },
-                        function (response) { });
-                });
-            setTimeout(function () {
-                window.close()
-            },
-            100)
-        });
         var pinAllBtn = $("pin-all-btn");
         pinAllBtn.addEventListener("click",function () {
             if (this.classList.contains("disabled")) {
@@ -63,10 +40,10 @@
                 },
                 function (response) { })
             });
-            //setTimeout(function () {
-            //    window.close()
-            //},
-            //100)
+            setTimeout(function () {
+                window.close()
+            },
+            100)
         });
         var captureAreaItem = $("capture-area-item");
         var captureViewportItem = $("capture-viewport-item");

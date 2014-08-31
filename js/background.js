@@ -500,6 +500,7 @@ function pageMenuClick(info, tab) {
                         info: info,
                         tab: tab
                     };
+                    Mingdao.removeCanvas();
                     Mingdao.setPageData(JSON.stringify(data));
                     chrome.tabs.sendMessage(
                         tabs[0].id,
@@ -514,25 +515,78 @@ function pageMenuClick(info, tab) {
     选中文字点击
 */
 function selectionMenuClick(info,tab) {
-    console.log(JSON.stringify(info));
+    chrome.tabs.query(
+                {
+                    active: true,
+                    currentWindow: true
+                },
+                function (tabs) {
+                    var data = {
+                        type: 'post',
+                        info: info,
+                        tab: tab
+                    };
+                    Mingdao.removeCanvas();
+                    Mingdao.setPageData(JSON.stringify(data));
+                    chrome.tabs.sendMessage(
+                        tabs[0].id,
+                        {
+                            msg: "shareDocumentUrl"
+                        },
+                        function (response) { });
+                });
 }
 
 /*
     链接点击
 */
 function linkMenuClick(info, tab) {
-    console.log(JSON.stringify(info));
+    chrome.tabs.query(
+                {
+                    active: true,
+                    currentWindow: true
+                },
+                function (tabs) {
+                    var data = {
+                        type: 'link',
+                        info: info,
+                        tab: tab
+                    };
+                    Mingdao.removeCanvas();
+                    Mingdao.setPageData(JSON.stringify(data));
+                    chrome.tabs.sendMessage(
+                        tabs[0].id,
+                        {
+                            msg: "shareDocumentUrl"
+                        },
+                        function (response) { });
+                });
 }
 
 /*
     图片点击
 */
 function imgMenuClick(info, tab) {
-    console.log(JSON.stringify(info));
-}
-
-function showDialog(info,tab){
-    
+    chrome.tabs.query(
+                {
+                    active: true,
+                    currentWindow: true
+                },
+                function (tabs) {
+                    var data = {
+                        type: 'pic',
+                        info: info,
+                        tab: tab
+                    };
+                    Mingdao.setCanvas(info.srcUrl);
+                    Mingdao.setPageData(JSON.stringify(data));
+                    chrome.tabs.sendMessage(
+                        tabs[0].id,
+                        {
+                            msg: "shareDocumentUrl"
+                        },
+                        function (response) { });
+                });
 }
 
 

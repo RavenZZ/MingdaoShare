@@ -13,10 +13,7 @@
    },
   "manifest_version": 2,
   "browser_action": {
-          "default_icon": {              
-            "19": "images/icon.png",           
-            "38": "images/icon.png"          
-          },
+          "default_icon":"images/icon.png",
           "default_title": "MD",     
           "default_popup": "popup.html"      
         },
@@ -29,8 +26,13 @@
 		"activeTab", 
 		"\u003Call_urls>"
     ],
+	"icons": {
+          "16": "images/icon.png",
+          "48": "images/icon.png",
+          "128": "images/icon.png"
+        },
 	"content_scripts":[{
-		 "exclude_globs": [ "http://huaban.com*", "http://www.huaban.com*"],
+		 "exclude_globs": [ "http://mingdao.com*", "http://www.mingdao.com*"],
 		 "include_globs": [ "*" ],
 		 "matches":["<all_urls>"],
 		"css": [ "css/capture.css","css/page.css" ],
@@ -39,11 +41,9 @@
 			"js/content_script.js",
 			"js/script.js",
 			"js/shortcut.js",
-			"js/page.js",
-			"js/upload_ui.js"
+			"js/page.js"
 			],
-        "run_at":"document_end",
-		"all_frames": true
+        "run_at":"document_end"
     }],
 	"web_accessible_resources":[
 		"css/*",

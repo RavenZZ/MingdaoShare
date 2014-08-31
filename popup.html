@@ -75,7 +75,7 @@
       #ext_name {
         height: 24px;
         line-height: 24px;
-        padding-left: 22px;
+        padding-left: 30px;
         font-size: 16px;
         background: url(/images/logo.png) no-repeat left center;
       }
@@ -93,7 +93,7 @@
       }
 
       #menu {
-        width: 200px;
+        width: 130px;
         margin-top: 10px;
       }
       #menu ul {
@@ -143,18 +143,15 @@
 </head>
 <body>
     <header>
-      <div id="ext_name">花瓣网页收藏工具</div>
-      <a id="preferences" class="button" href="preferences.html" target="bobobee_preferences" title="选项"></a>
+      <div id="ext_name">明道网页工具</div>
     </header>
     <div id="menu" class="popup">
       <ul>
-        <li id="btn-share-link" class="button">
-          <span class="title">分享当前页面</span>
-        </li>
+        <li class="separator"></li>
         <li id="pin-all-btn" class="button disabled">
           <span class="title">分享图片/视频</span>
         </li>
-        <li id="capture-area-item" class="button capture disabled">
+        <li id="capture-area-item" class="button capture disabled" style="display:none">
           <span class="title">分享区域截图</span>
           <span class="prompt" style="display: none;">Ctrl+Shift+R</span>
         </li>
@@ -166,11 +163,7 @@
           <span class="title">分享网页截图</span>
           <span class="prompt" style="display: none;">Ctrl+Shift+H</span>
         </li>
-        <li class="separator"></li>
-        <li id="toggle-btn" class="button">
-          <span class="title checked">显示分享按钮</span>
-        </li>
-        <li class="separator"></li>
+        
       </ul>
     </div>
     <script src="js/utils.js"></script>

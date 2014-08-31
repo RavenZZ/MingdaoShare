@@ -6,7 +6,7 @@
 	width:580px;
 	margin-left:-290px;
 	background:#fff;
-	z-index:401;
+	z-index:999999;
 	box-shadow:0 2px 5px rgba(0,0,0,.3);
 }
 .share-dialog .box-title {

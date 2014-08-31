@@ -587,7 +587,7 @@ textarea:focus,input:focus {
 	width:580px;
 	margin-left:-290px;
 	background:#fff;
-	z-index:401;
+	z-index:999999;
 	box-shadow:0 2px 5px rgba(0,0,0,.3);
 }
 .dialog-box {
@@ -1017,7 +1017,6 @@ textarea:focus,input:focus {
 	z-index:411;
 	top:-1px;
 	left:-1px;
-	padding-bottom:55px;
 	width:100%;
 	background:#fff;
 	border:1px solid #BFBFBF;
@@ -1046,7 +1045,7 @@ textarea:focus,input:focus {
 }
 .board-list-body {
 	width:100%;
-	max-height:300px;
+	max-height:240px;
 	overflow-y:auto;
 	overflow-x:hidden;
 }
@@ -1126,7 +1125,7 @@ textarea:focus,input:focus {
 	margin-top:20px;
 }
 .pin-form .btn {
-	float:left;
+	float:right;
 }
 .pin-form .buttons label {
 	float:right;

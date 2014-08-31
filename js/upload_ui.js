@@ -429,16 +429,13 @@ var UploadUI = {
                     var w = $("pin-done");
                     var B = $("view_pin");
                     B.href = "http://" + DOMAIN + "/feeddetail?itemID=" + y.post;
-                    B.onclick = function () {
-                        chrome.tabs.create({
-                            url: B.href
-                        });
-                        return false
-                    };
-                    //$("close_window").addEventListener("click",
-                    //function () {
-                    //    Page.closeDialog();
-                    //});
+                    B.target = "_blank";
+                    //B.onclick = function () {
+                    //    chrome.tabs.create({
+                    //        url: B.href
+                    //    });
+                    //    return false
+                    //};
                     w.style.display = "block";
                     var A = querySelector("a.less");
                     //A.innerText = y.board.title;
@@ -526,7 +523,9 @@ var UploadUI = {
     },
     getImageData: function () {
         var a = Mingdao.getCanvas();
-        return atob(a.split(",")[1])
+        if (a)
+            return atob(a.split(",")[1])
+        return null;
     }
 };
 if (typeof chrome.tabs != 'undefined') {

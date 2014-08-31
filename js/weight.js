@@ -1,5 +1,4 @@
-﻿!
-function () {
+﻿!function () {
     "undefined" == typeof window.MINGDAO_GLOBAL && (window.MINGDAO_GLOBAL = {},
     function (a, b, c) {
         {
@@ -1001,7 +1000,7 @@ function () {
         c = {
             "": 'font-family: "helvetica neue",arial,sans-serif; color: #444; font-size: 14px;',
             "*": "box-sizing: content-box;",
-            ".main": "position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: #e5e5e5; background: rgba(229,229,229,.95); max-height: 100%; overflow: hidden; z-index: 9999999999999;",
+            ".main": "position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: #e5e5e5; background: rgba(229,229,229,.95); max-height: 100%; overflow: hidden; z-index: 99999;",
             "a img": "border: 0;",
             ".header": "height: 50px; background: white; box-shadow: 0 0 4px rgba(0,0,0,.2); width: 100%; left: 0; top: 0; position: absolute;",
             ".header .inner": "margin: 0 auto; position: relative;",
@@ -1012,9 +1011,9 @@ function () {
             ".waterfall-holder": "position: relative; overflow-y: auto; height: 100%;",
             ".waterfall": "position: relative; margin-top: 50px;",
             ".waterfall .empty": "position: absolute; left: 50%; top: 30px; height: 36px; line-height: 36px; width: 216px; text-align: left; margin-left: -128px; color: #777; background: url({{imgBase}}/icon_notice.png) 12px 8px no-repeat white; padding-left: 40px; font-size: 15px;",
-            ".btn": "display: inline-block; border-radius: 2px; font-size: 14px; padding: 0 12px; height: 30px; line-height: 30px; cursor: pointer; text-decoration: none; white-space: nowrap; -moz-user-select: none; -webkit-user-select: none; user-select: none; text-align: center; background: #D53939; color: white;",
-            ".btn:hover": "background: #E54646;",
-            ".btn:active": "background: #C52424;",
+            ".btn": "display: inline-block; border-radius: 2px; font-size: 14px; padding: 0 12px; height: 30px; line-height: 30px; cursor: pointer; text-decoration: none; white-space: nowrap; -moz-user-select: none; -webkit-user-select: none; user-select: none; text-align: center; background: #0066cc; color: white;",
+            ".btn:hover": "background: #0066cc;",
+            ".btn:active": "background: #0066cc;",
             ".wbtn": "background: #EDEDED; color: #444;",
             ".wbtn:hover": "background: #F2F2F2;",
             ".wbtn:active": "background: #DDD;",
@@ -1071,7 +1070,7 @@ function () {
             ".switcher": "height: 50px; width: 100px; position: relative;",
             ".switcher .title": "position: absolute; right: 75px; top: 13px; color: #999; white-space: nowrap; line-height: 24px; opacity: 0; visibility: hidden;",
             ".switcher:hover .title": "visibility: visible; opacity: 1; -webkit-transition: opacity .2s linear; -webkit-transition-delay: .2s; transition: opacity .2s linear; transition-delay: .2s;",
-            ".switcher .bar": "width: 40px; height: 24px; background: #EB595F; border-radius: 12px; color: white; position: absolute; right: 0; top: 13px; cursor: pointer; font-size: 14px; -webkit-transition: all .2s linear; transition: all .2s linear;",
+            ".switcher .bar": "width: 40px; height: 24px; background: #0066cc; border-radius: 12px; color: white; position: absolute; right: 0; top: 13px; cursor: pointer; font-size: 14px; -webkit-transition: all .2s linear; transition: all .2s linear;",
             ".switcher:hover .bar": "width: 64px;",
             ".switcher.on .bar": "background: #7DD100;",
             ".switcher .bar .round": "width: 20px; height: 20px; background: white; border-radius: 50%; position: absolute; left: 2px; top: 2px; -webkit-transition: left .2s linear; box-shadow: 0px 0px 3px rgba(0,0,0,0.15); transition: left .2s linear; box-shadow: 0px 0px 3px rgba(0,0,0,0.15);",
@@ -1928,11 +1927,11 @@ function () {
             f.waterfall = d
         }
     }(MINGDAO_GLOBAL),
-    function (a, b) {
-        a.Qatrix;
-        a.popup = {
+    function (global, win) {
+        global.Qatrix;
+        global.popup = {
             single: function (c, d) {
-                var e = [a.settings.popupUrl + "?"],
+                var e = [global.settings.popupUrl + "?"],
                 f = {
                     media: c.imgUrl,
                     w: c.size.x,
@@ -1945,14 +1944,15 @@ function () {
                 e.push("="),
                 e.push(encodeURIComponent(f[g])),
                 e.push("&");
-                a.settings.via && e.push("via=" + encodeURIComponent(a.settings.via) + "&"),
-                a.settings.md && e.push("md=" + encodeURIComponent(a.settings.md)),
+                global.settings.via && e.push("via=" + encodeURIComponent(global.settings.via) + "&"),
+                global.settings.md && e.push("md=" + encodeURIComponent(global.settings.md)),
                 e = e.join("");
                 var h = "status=no,resizable=no,scrollbars=yes,personalbar=no,directories=no,location=no,toolbar=no,menubar=no,width=632,height=320,left=0,top=0";
-                d ? a.ui.setMessage({
+                debugger;
+                d ? global.ui.setMessage({
                     url: e,
                     features: h
-                }) : b.open(e, "", h)
+                }) : Page.showDialog();
             },
             multi: function (c) {
                 for (var d = [], e = 0; e < c.length; e++) {
@@ -1963,12 +1963,12 @@ function () {
                 }
                 this.exportUnits = d;
                 var g = "status=no,resizable=no,scrollbars=yes,personalbar=no,directories=no,location=no,toolbar=no,menubar=no,width=500,height=350,left=0,top=0";
-                this.multiPopupWindow = b.open(a.settings.multiPopupUrl, "", g)
+                this.multiPopupWindow = win.open(global.settings.multiPopupUrl, "", g)
             },
             sendExportUnits: function () {
                 if (this.exportUnits && this.exportUnits.length) {
                     var b = JSON.stringify(this.exportUnits);
-                    this.multiPopupWindow.postMessage(b, a.settings.mingdaoUrl)
+                    this.multiPopupWindow.postMessage(b, global.settings.mingdaoUrl)
                 }
             }
         }

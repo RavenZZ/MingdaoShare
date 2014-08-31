@@ -7,7 +7,8 @@
    
     var acctountUrl = "http://api." + domain + "/passport/detail";
     var groupUrl = "http://api." + domain + "/group/my_joined";
-    var g = "http://api." + domain + "/post/upload";
+    var uploadUrl = "http://api." + domain + "/post/upload";
+    var postUrl = "http://api." + domain + "/post/update";
     var e = "Mingdao_Bobobee_Boundary";
     var j = function (m) {
         for (var n in m) {
@@ -67,6 +68,18 @@
             n = JSON.stringify(n);
             localStorage.setItem("mingdao_userInfo", n)
         },
+        getBoards: function () {
+            var boards = localStorage.getItem("mingdao_groups");
+            if (boards) {
+                boards = JSON.parse(boards);
+                return boards;
+            }
+            return [];
+        },
+        setBoards: function (groups) {
+            var str = JSON.stringify(groups);
+            localStorage.setItem("mingdao_groups", str)
+        },
         isExpires: function (n) {
             var m = n.expires;
             if (m) {
@@ -79,6 +92,9 @@
         },
         getCanvas: function () {
             return localStorage.getItem("canvas");
+        },
+        removeCanvas: function () {
+            localStorage.removeItem("canvas");
         },
         getPageData: function () {
             return localStorage.getItem("pagedata");
@@ -95,6 +111,9 @@
         },
         getCanvas: function () {
             return c.getCanvas();
+        },
+        removeCanvas: function () {
+            c.removeCanvas();
         },
         getPageData: function () {
             return c.getPageData();
@@ -179,27 +198,28 @@
             b.accessTokenCallback = null
         },
         getBoards: function (m, o) {
-            var n = "bearer " + m.accessToken;
-            ajax({
-                url: groupUrl,
-                headers: {
-                    Authorization: n
-                },
-                parameters: {
-                    access_token: m.accessToken,
-                    u_id: m.id,
-                    format: 'json'
-                },
-                success: function (p) {
-                    if (p.err) {
-                        return o("failure", p)
+            var boards = c.getBoards();
+            if (boards.length == 0) {
+                var n = "bearer " + m.accessToken;
+                ajax({
+                    url: groupUrl,
+                    headers: {},
+                    parameters: {
+                        access_token: m.accessToken,
+                        u_id: m.id,
+                        format: 'json'
+                    },
+                    success: function (p) {
+                        if (p.err) {
+                            return o("failure", p)
+                        }
+                        c.setBoards(p.groups);
+                        return o("success", p.groups)
                     }
-                    //var q = p.boards.filter(function (r) {
-                    //    return r.is_private != 2
-                    //});
-                    return o("success", p.groups)
-                }
-            })
+                })
+            } else {
+                o("success", boards);
+            }
         },
         createBoard: function (o, q) {
             var m = c.getUser(Mingdao.currentUserId);
@@ -241,6 +261,7 @@
                         headers: {},
                         parameters: { access_token: m.accessToken, u_id: m.id, format: "json" },
                         success: function (s) {
+                            c.setBoards(s.groups);
                             o("success", m, s.groups)
                         }
                     })
@@ -252,35 +273,25 @@
                 }
             })
         },
-        upload: function (n, x, t, p, m, w) {
+        upload: function (gid, msg, link, toweibo, imgData, callback) {
             var r = c.getUser(Mingdao.currentUserId);
-            var s = "Bearer " + r.accessToken;
-            var v = new Date().getTime() + "." + localStorage.screenshotFormat;
-            var q = "image/" + localStorage.screenshotFormat;
-            x += '\n' + t;
-            var u = {
-                boundary: e,
-                data: m,
-                value: v,
-                type: q,
-                name: 'p_img'
-            };
-            ajax({
-                url: g,
+            var time = new Date().getTime() + "." + localStorage.screenshotFormat;
+            var imageType = "image/" + localStorage.screenshotFormat;
+            
+            var parameters = [
+                "access_token=" + r.accessToken,
+                "g_id=" + gid,
+                "s_type=1",
+                "format=json"
+            ];
+            var request = {
+                method: "POST",
                 headers: {},
-                multipartData: u,
-                parameters: {
-                    access_token: r.accessToken,
-                    g_id: n,
-                    p_msg: x,
-                    s_type: 1,
-                    format: 'json'
-                },
                 success: function (y) {
                     if (y.post) {
-                        w("success", y)
+                        callback("success", y)
                     } else {
-                        w("failure", y.msg || y)
+                        callback("failure", y.error_code || y)
                     }
                 },
                 status: {
@@ -291,7 +302,28 @@
                         w("failure", y, z)
                     }
                 }
-            })
+            }
+            if (imgData) {
+                request.url = uploadUrl;
+                request.multipartData = {
+                    boundary: "boundary=" + e,
+                    data: imgData,
+                    value: time,
+                    type: imageType,
+                    name: 'p_img'
+                }
+                msg += '\n' + link;
+                url = uploadUrl;
+            } else {
+                request.headers = { "Content-Type": "application/x-www-form-urlencoded" };
+                request.url = postUrl;
+                parameters.push("l_title=" + link);
+                parameters.push("l_uri=" + link);
+                parameters.push("p_type=1");
+            }
+            parameters.push("p_msg=" + msg);
+            request.data = parameters.join("&");
+            ajax(request);
         },
         postPin: function (p, r) {
             var n = c.getUser(b.currentUserId);
