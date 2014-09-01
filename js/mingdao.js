@@ -107,13 +107,34 @@
         }
     };
     var b = window.Mingdao = {
+        canvas:document.createElement("canvas"),
         currentUserId: null,
         redirectUrl: callbackUrl,
-        setCanvas: function (data) {
-            c.setCanvas(data);
+        setCanvas: function (src,callback) {
+            var img = new Image();
+            img.src = src;
+            img.onload = function () {
+                var c;
+                if (typeof screenshot != 'undefined')
+                    c = screenshot.canvas;
+                else if (typeof bg != 'undefined')
+                    c = bg.screenshot.canvas;
+                else
+                    c = Mingdao.canvas;
+                c.width = this.width;
+                c.height = this.height;
+                var h = c.getContext("2d");
+                h.drawImage(this, 0, 0, this.width, this.height);
+                (callback&&callback())
+            };
+            
         },
         getCanvas: function () {
-            return c.getCanvas();
+            if (typeof screenshot != 'undefined')
+                return screenshot.canvas.toDataURL("image/png");
+            if (typeof bg != 'undefined')
+                return bg.screenshot.canvas.toDataURL("image/png");
+            return Mingdao.canvas.toDataURL("image/png");
         },
         removeCanvas: function () {
             c.removeCanvas();
@@ -282,10 +303,10 @@
             var imageType = "image/" + localStorage.screenshotFormat;
             
             var parameters = {
-                "access_token":r.accessToken,
-                "g_id": gid,
-                "s_type":1,
-                "format":"json"
+                "access_token": r.accessToken,
+                "g_id": (gid == "-1" ? "" : gid),
+                "s_type": (gid == "1" ? 0 : 1),
+                "format": "json"
             };
             var request = {
                 method: "POST",

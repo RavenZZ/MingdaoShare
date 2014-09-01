@@ -1,10 +1,16 @@
 ﻿"use strict";
+var bg = chrome.extension && chrome.extension.getBackgroundPage && chrome.extension.getBackgroundPage();
 window.addEventListener("load", function () {
     var b = document.querySelector("#dialog-box .image-picker .carousel-clip");
     var imgPicker = document.querySelector("#dialog-box .image-picker");
     var doms = [document.querySelector("#dialog-box .pin-form"), $("loading"), $("authorization")];
+    var pageData = Mingdao.getPageData();
+    var data;
+    if (pageData)
+        data = JSON.parse(pageData);
     var ShowImage = function () {
         var c = new Image();
+        
         var Canvas = Mingdao.getCanvas();
         if (Canvas) {
             c.src = Canvas;
@@ -22,12 +28,11 @@ window.addEventListener("load", function () {
             }
         }
 
-        var pageData = Mingdao.getPageData()
-        if (pageData) {
+       
+        if (data) {
             var data = JSON.parse(pageData);
             if (data.info.selectionText)
                 $("description").value = data.info.selectionText;
-            else
                 $("description").value = data.tab.title;
             if (data.info.linkUrl)
                 $("url").value = data.info.linkUrl;
@@ -55,27 +60,24 @@ window.addEventListener("load", function () {
         mediaUrl = unescape(mediaUrl);
         var linkUrl = unescape(QueryString["url"]);
         var width = QueryString["w"];
-        var height =QueryString["h"];
+        var height = QueryString["h"];
         var description = unescape(QueryString["description"]);
-        
-        var img = new Image();
-        img.src = mediaUrl;
-        img.onload = function () {
-            var canvas = document.createElement("canvas");
-            canvas.width = this.width;
-            canvas.height = this.height;
-            var ctx = canvas.getContext("2d");
-            ctx.drawImage(this, 0, 0);
-            var dataURL = canvas.toDataURL("image/png");
-            Mingdao.setCanvas(dataURL);
-            ShowImage();
+        var data = {
+            type: 'pic',
+            info: { pageUrl: linkUrl },
+            tab: { title: description, url: linkUrl }
         };
+        Mingdao.setPageData(JSON.stringify(data));
+        Mingdao.setCanvas(mediaUrl, function () {
+            ShowImage();
+        });
     } else {
-        ShowImage();
+        if (data && data.canvas) {
+            Mingdao.setCanvas(data.info.srcUrl, ShowImage);
+        } else {
+            ShowImage();
+        }
     }
-
-   
-   
 });
 
 var QueryString = function () {

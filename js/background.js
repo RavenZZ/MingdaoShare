@@ -382,8 +382,8 @@ var screenshot = {
             active: true,
             currentWindow: true
         },
-        function (b) {
-            screenshot.tab = b[0];
+        function (tabs) {
+            screenshot.tab = tabs[0];
             screenshot.page_info = a
         });
         chrome.tabs.create({
@@ -581,29 +581,19 @@ function imgMenuClick(info, tab) {
                 function (tabs) {
                     var data = {
                         type: 'pic',
+                        canvas:true,
                         info: info,
                         tab: tab
                     };
                     Mingdao.setPageData(JSON.stringify(data));
 
-                    var img = new Image();
-                    img.src = info.srcUrl;
-                    img.onload = function () {
-                        var canvas = document.createElement("canvas");
-                        canvas.width = this.width;
-                        canvas.height = this.height;
-                        var ctx = canvas.getContext("2d");
-                        ctx.drawImage(this, 0, 0);
-                        var dataURL = canvas.toDataURL("image/png");
-                        Mingdao.setCanvas(dataURL);
-                        chrome.tabs.sendMessage(
-                            tabs[0].id,
-                            {
-                                msg: "shareDocumentUrl"
-                            },
-                            function (response) { }
-                        );
-                    };
+                    chrome.tabs.sendMessage(
+                        tabs[0].id,
+                        {
+                            msg: "shareDocumentUrl"
+                        },
+                        function (response) { }
+                    );
                     
                 });
 }

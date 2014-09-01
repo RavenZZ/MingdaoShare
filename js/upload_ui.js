@@ -138,7 +138,7 @@ var BoardPicker = {
         }
         this._items = 0;
         this.listEl.innerHTML = "";
-        var everyone = { id: '1', name: '所有同事' };
+        var everyone = { id: '-1', name: '所有同事' };
         BoardPicker._injectItem(everyone.id,everyone.name);
         if (c && c.length > 0) {
             this.boards = c;
@@ -330,6 +330,7 @@ var UploadUI = {
         function () {
             var p = j.value;
             var o = l.querySelectorAll("a");
+            if (!o.length) return;
             o.forEach(function (r) {
                 var q = r.dataset.tag;
                 q = "#" + q + "#";

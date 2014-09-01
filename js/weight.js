@@ -1122,9 +1122,7 @@
             main: ['<div class="main">', '<div id="WATERFALL_HOLDER" class="waterfall-holder">', '<div class="waterfall">', "</div>", "</div>", '<div class="header">', '<div class="inner sync">', '<a class="logo" href="{{mingdaoUrl}}" target="_blank">', '<img src="{{imgBase}}/mingdao_logo.png">', "</a>", '<div class="multi-noti">已选择 <b>1</b> 张<span>（最多 <i>10</i> 张）</span></div>', '<div class="multi-buttons">', '<div class="btn confirm">批量分享</div>', '<div class="btn wbtn cancel">取消</div>', "</div>", '<div class="notice" style="display: none"><i></i><span></span></div>', '<div class="switcher switch-order">', '<div class="title">图片排序</div>', '<div class="bar">', '<div class="text-1">推荐</div>', '<div class="text-2">自然</div>', '<div class="round"></div>', "</div>", "</div>", "</div>", '<div class="close", title="或按 ESC 键关闭">', "</div>", "</div>", "</div>"].join(""),
             "message-box": '<div id="MINGDAO_MESSAGE" style="display: none"></div>',
             "waterfall-cell": ['<div class="cell">', '<div class="img-holder">', '<img src="{{imgUrl}}" class="cell-img" height="{{imgHeight}}"/>', '<div class="pinned-label">已分享</div>', '<div class="video-icon"></div>', '<div class="over">',
-                '<div class="btn cell-pin-btn">分享</div>',
-                '<div class="select-btn"></div>',
-                "</div>", "</div>", '<div class="size">{{size.x}} x {{size.y}}</div>', '<div contenteditable="true" class="description">{{description}}</div>', "</div>"].join(""),
+            "</div>", "</div>", '<div class="size">{{size.x}} x {{size.y}}</div>', '<div contenteditable="true" class="description">{{description}}</div>', "</div>"].join(""),
             "empty-alert": ['<div class="empty">没有找到足够大的图片/视频</div>'].join(""),
             "floating-button": ['<div class="f-button {{extraClass}}">', "{{inner}}", "</div>"].join("")
         };
@@ -1533,7 +1531,6 @@
                     }), void a(d)) : a([])
                 },
                 buildImgUnit: function (b) {
-                    
                     if (!b.src) return null;
                     var d = this.getImgNaturalSize(b);
                     return d ? {
@@ -1808,14 +1805,15 @@
                             if (!c.$className.has(e, "MINGDAO-f-button")) if ("img" == e.tagName.toLowerCase()) {
                                 var f = d.getImgNaturalSize(e),
                                 i = d.getElemSize(e);
-                                if (!c.$findParent(e,function (b) {
-                                         return b.id == "WATERFALL_HOLDER";
-                                })) return;
                                 var j = d.getElPosition(e);
-                                c.$css.set(g, d.calButtonPos(j, h)),
+
+                                c.$css.set(g, d.calButtonPos(j, h));
+                                g.imgElem = e;
+                                if (!c.$findParent(e, function (el) {
+                                     return el.id == "WATERFALL_HOLDER";
+                                })) return null;
+                                c.$show(g);
                                 
-                                c.$show(g),
-                                g.imgElem = e
                             } else {
                                 if (c.$className.has(e, "bdimgshare-bg")) return;
                                 c.$hide(g)
@@ -1841,7 +1839,7 @@
                         '<a href="javascript:void(0);" target="_blank">',
                         '</div>',
                         '</div>',
-                        '<iframe id="share-to-mingdao" sandbox="allow-same-origin allow-scripts" src="about:blank" frameborder="0" width="580" height="300"></iframe></div>',
+                        '<iframe id="share-to-mingdao" sandbox="allow-same-origin allow-scripts" src="about:blank" frameborder="0" width="600" height="450"></iframe></div>',
                         '<div id="overlay" style="width: 1920px; height: 949px; display: none;"></div>'
                 ];
                     wrapper.innerHTML = html.join("");

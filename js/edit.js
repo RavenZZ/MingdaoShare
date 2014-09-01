@@ -1,5 +1,5 @@
 "use strict";
-var bg = (chrome.extension && chrome.extension.getBackgroundPage) ? chrome.extension.getBackgroundPage() : window;
+var bg = chrome.extension.getBackgroundPage();
 var Canvas = (function () {
     var a = function (d, e) {
         var g = d.toLowerCase();
@@ -1414,18 +1414,12 @@ window.addEventListener("load", function () {
     } else {
         c.src = $("canvas").toDataURL("image/png")
     }
-    Mingdao.setCanvas(c.src);
     $("btn_upload").addEventListener("click",
     function (d) {
         photoshop.draw();
-        if (localStorage.screenshotFormat == "jpeg") {
-            c.src = $("canvas").toDataURL("image/jpeg", 1)
-        } else {
-            c.src = $("canvas").toDataURL("image/png")
-        }
-        Mingdao.setCanvas(c.src);
-        Page.showDialog();
         photoshop.finish();
+        bg.screenshot.canvas = photoshop.canvas;
+        Page.showDialog();
         d.preventDefault()
     });
     $("btn_close").addEventListener("click",
