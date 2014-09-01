@@ -584,8 +584,19 @@ function imgMenuClick(info, tab) {
                         info: info,
                         tab: tab
                     };
-                    Mingdao.setCanvas(info.srcUrl);
                     Mingdao.setPageData(JSON.stringify(data));
+
+                    var img = new Image();
+                    img.src = info.srcUrl;
+                    img.onload = function () {
+                        var canvas = document.createElement("canvas");
+                        canvas.width = this.width;
+                        canvas.height = this.height;
+                        var ctx = canvas.getContext("2d");
+                        ctx.drawImage(this, 0, 0);
+                        var dataURL = canvas.toDataURL("image/png");
+                        Mingdao.setCanvas(dataURL);
+                    };
                     chrome.tabs.sendMessage(
                         tabs[0].id,
                         {
