@@ -1122,6 +1122,8 @@
             main: ['<div class="main">', '<div id="WATERFALL_HOLDER" class="waterfall-holder">', '<div class="waterfall">', "</div>", "</div>", '<div class="header">', '<div class="inner sync">', '<a class="logo" href="{{mingdaoUrl}}" target="_blank">', '<img src="{{imgBase}}/mingdao_logo.png">', "</a>", '<div class="multi-noti">已选择 <b>1</b> 张<span>（最多 <i>10</i> 张）</span></div>', '<div class="multi-buttons">', '<div class="btn confirm">批量分享</div>', '<div class="btn wbtn cancel">取消</div>', "</div>", '<div class="notice" style="display: none"><i></i><span></span></div>', '<div class="switcher switch-order">', '<div class="title">图片排序</div>', '<div class="bar">', '<div class="text-1">推荐</div>', '<div class="text-2">自然</div>', '<div class="round"></div>', "</div>", "</div>", "</div>", '<div class="close", title="或按 ESC 键关闭">', "</div>", "</div>", "</div>"].join(""),
             "message-box": '<div id="MINGDAO_MESSAGE" style="display: none"></div>',
             "waterfall-cell": ['<div class="cell">', '<div class="img-holder">', '<img src="{{imgUrl}}" class="cell-img" height="{{imgHeight}}"/>', '<div class="pinned-label">已分享</div>', '<div class="video-icon"></div>', '<div class="over">',
+                '<div class="btn cell-pin-btn">分享</div>',
+                '<div class="select-btn"></div>',
                 "</div>", "</div>", '<div class="size">{{size.x}} x {{size.y}}</div>', '<div contenteditable="true" class="description">{{description}}</div>', "</div>"].join(""),
             "empty-alert": ['<div class="empty">没有找到足够大的图片/视频</div>'].join(""),
             "floating-button": ['<div class="f-button {{extraClass}}">', "{{inner}}", "</div>"].join("")
