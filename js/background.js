@@ -596,13 +596,15 @@ function imgMenuClick(info, tab) {
                         ctx.drawImage(this, 0, 0);
                         var dataURL = canvas.toDataURL("image/png");
                         Mingdao.setCanvas(dataURL);
+                        chrome.tabs.sendMessage(
+                            tabs[0].id,
+                            {
+                                msg: "shareDocumentUrl"
+                            },
+                            function (response) { }
+                        );
                     };
-                    chrome.tabs.sendMessage(
-                        tabs[0].id,
-                        {
-                            msg: "shareDocumentUrl"
-                        },
-                        function (response) { });
+                    
                 });
 }
 
