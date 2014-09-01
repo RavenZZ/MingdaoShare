@@ -314,7 +314,6 @@
                     name: 'p_img'
                 }
                 msg += '\n' + link;
-                url = uploadUrl;
             } else {
                 request.headers = { "Content-Type": "application/x-www-form-urlencoded" };
                 request.url = postUrl;

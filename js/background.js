@@ -48,6 +48,12 @@ var bookmarkletUrl = chrome.extension.getURL('js/weight.js?') + Math.floor(new D
 }());
 chrome.runtime.onMessage.addListener(function (f, g, c) {
     switch (f.msg) {
+        case "open_new_url":
+            chrome.tabs.create({
+                url: f.url,
+                active: true
+            });
+            break;
         case "settings":
             var b = localStorage.minWidth || 200;
             b = parseInt(b);

@@ -427,13 +427,10 @@ var UploadUI = {
                     var w = $("pin-done");
                     var B = $("view_pin");
                     B.href = "http://" + DOMAIN + "/feeddetail?itemID=" + y.post;
-                    B.target = "_blank";
-                    //B.onclick = function () {
-                    //    chrome.tabs.create({
-                    //        url: B.href
-                    //    });
-                    //    return false
-                    //};
+                    B.onclick = function () {
+                        chrome.extension.sendMessage({ msg: "open_new_url", url: B.href });
+                        return false
+                    };
                     w.style.display = "block";
                     var A = querySelector("a.less");
                     //A.innerText = y.board.title;

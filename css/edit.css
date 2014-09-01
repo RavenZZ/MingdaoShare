@@ -194,15 +194,15 @@ textarea:focus,input:focus {
 }
 .tool-icon.pin {
 	color:#fff;
-	background-color:#D53939;
+	background-color:#0066cc;
 	box-shadow:0 0 1px rgba(0,0,0,.3);
 }
 .toolbar ul li:hover .tool-icon.pin {
-	background-color:#E54646;
+	background-color:#0066cc;
 	outline:none;
 }
 .toolbar ul li:active .tool-icon.pin {
-	background-color:#C52424;
+	background-color:#0066cc;
 }
 .tool-icon.pin i {
 	background-position:0 -400px;
