@@ -279,12 +279,12 @@
             var time = new Date().getTime() + "." + localStorage.screenshotFormat;
             var imageType = "image/" + localStorage.screenshotFormat;
             
-            var parameters = [
-                "access_token=" + r.accessToken,
-                "g_id=" + gid,
-                "s_type=1",
-                "format=json"
-            ];
+            var parameters = {
+                "access_token":r.accessToken,
+                "g_id": gid,
+                "s_type":1,
+                "format":"json"
+            };
             var request = {
                 method: "POST",
                 headers: {},
@@ -314,15 +314,22 @@
                     name: 'p_img'
                 }
                 msg += '\n' + link;
+                parameters.p_msg = msg;
+                request.parameters = parameters;
+
             } else {
                 request.headers = { "Content-Type": "application/x-www-form-urlencoded" };
                 request.url = postUrl;
-                parameters.push("l_title=" + link);
-                parameters.push("l_uri=" + link);
-                parameters.push("p_type=1");
+                var param = new Array();
+                for (var key in parameters) {
+                    param.push(key + "=" + parameters[key]);
+                }
+                param.push("l_title=" + link);
+                param.push("l_uri=" + link);
+                param.push("p_type=1");
+                param.push("p_msg=" + msg);
+                request.data = param.join("&");
             }
-            parameters.push("p_msg=" + msg);
-            request.data = parameters.join("&");
             ajax(request);
         },
         postPin: function (p, r) {
