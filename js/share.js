@@ -3,47 +3,100 @@ window.addEventListener("load", function () {
     var b = document.querySelector("#dialog-box .image-picker .carousel-clip");
     var imgPicker = document.querySelector("#dialog-box .image-picker");
     var doms = [document.querySelector("#dialog-box .pin-form"), $("loading"), $("authorization")];
-    var c = new Image();
-    var Canvas = Mingdao.getCanvas();
-    if (Canvas) {
-        c.src = Canvas;
-        b.appendChild(c);
-        imgPicker.style.display = "block";
-        for (var i = 0, len = doms.length; i < len; i++) {
-            var dom = doms[i];
-            dom.style.marginLeft = "190px";
+    var ShowImage = function () {
+        var c = new Image();
+        var Canvas = Mingdao.getCanvas();
+        if (Canvas) {
+            c.src = Canvas;
+            b.appendChild(c);
+            imgPicker.style.display = "block";
+            for (var i = 0, len = doms.length; i < len; i++) {
+                var dom = doms[i];
+                dom.style.marginLeft = "190px";
+            }
+        } else {
+            imgPicker.style.display = "none";
+            for (var i = 0, len = doms.length; i < len; i++) {
+                var dom = doms[i];
+                dom.style.marginLeft = "0px";
+            }
         }
-    } else {
-        imgPicker.style.display = "none";
-        for (var i = 0,len=doms.length; i < len; i++) {
-            var dom=doms[i];
-            dom.style.marginLeft="0px";
+
+        var pageData = Mingdao.getPageData()
+        if (pageData) {
+            var data = JSON.parse(pageData);
+            if (data.info.selectionText)
+                $("description").value = data.info.selectionText;
+            else
+                $("description").value = data.tab.title;
+            if (data.info.linkUrl)
+                $("url").value = data.info.linkUrl;
+            else
+                $("url").value = data.info.pageUrl;
         }
+        var a = Mingdao.getUser();
+        UploadUI.init(a);
+        if (!a) {
+            UploadUI.showAuth()
+        } else {
+            UploadUI.getBoards(a)
+        }
+        $("auth_btn").addEventListener("click",
+        function (d) {
+            UploadUI.showLoading();
+            UploadUI.getAccessToken();
+            d.preventDefault()
+        });
     }
-    
-    var pageData = Mingdao.getPageData()
-    if (pageData) {
-        var data = JSON.parse(pageData);
-        if(data.info.selectionText)
-            $("description").value = data.info.selectionText;
-        else
-            $("description").value = data.tab.title;
-        if (data.info.linkUrl) 
-            $("url").value = data.info.linkUrl;
-        else
-            $("url").value = data.info.pageUrl;
-    }
-    var a = Mingdao.getUser();
-    UploadUI.init(a);
-    if (!a) {
-        UploadUI.showAuth()
+
+
+    var mediaUrl = QueryString["media"];
+    if (mediaUrl) {
+        mediaUrl = unescape(mediaUrl);
+        var linkUrl = unescape(QueryString["url"]);
+        var width = QueryString["w"];
+        var height =QueryString["h"];
+        var description = unescape(QueryString["description"]);
+        
+        var img = new Image();
+        img.src = mediaUrl;
+        img.onload = function () {
+            var canvas = document.createElement("canvas");
+            canvas.width = this.width;
+            canvas.height = this.height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(this, 0, 0);
+            var dataURL = canvas.toDataURL("image/png");
+            Mingdao.setCanvas(dataURL);
+            ShowImage();
+        };
     } else {
-        UploadUI.getBoards(a)
+        ShowImage();
     }
-    $("auth_btn").addEventListener("click",
-    function (d) {
-        UploadUI.showLoading();
-        UploadUI.getAccessToken();
-        d.preventDefault()
-    });
+
+   
+   
 });
+
+var QueryString = function () {
+    // This function is anonymous, is executed immediately and 
+    // the return value is assigned to QueryString!
+    var query_string = {};
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        // If first entry with this name
+        if (typeof query_string[pair[0]] === "undefined") {
+            query_string[pair[0]] = pair[1];
+            // If second entry with this name
+        } else if (typeof query_string[pair[0]] === "string") {
+            var arr = [query_string[pair[0]], pair[1]];
+            query_string[pair[0]] = arr;
+            // If third or later entry with this name
+        } else {
+            query_string[pair[0]].push(pair[1]);
+        }
+    }
+    return query_string;
+}();
