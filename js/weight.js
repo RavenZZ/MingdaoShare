@@ -1,5 +1,23 @@
 ﻿!function () {
     "undefined" == typeof window.MINGDAO_GLOBAL && (window.MINGDAO_GLOBAL = {},
+    window.Page={
+        showDialog: function (obj) {
+            var a = $("#overlay");
+            a.css({
+                width: document.body.scrollWidth + "px",
+                height: document.body.scrollHeight + "px"
+            }).show();
+            var param = [
+               "media=" + obj.media,
+               "url=" + obj.url,
+               "w=" + obj.w,
+               "h=" + obj.h,
+               "description=" + obj.description
+            ];
+            $("#share-to-mingdao").attr("src", MINGDAO_PRESETTINGS.shareUrl + "?" + param.join("&"));
+            $("#pin_wrapper").show()
+        }
+    },
     function (a, b, c) {
         {
             var d = "1.1.2",
@@ -1104,7 +1122,8 @@
         a.templates = {
             main: ['<div class="main">', '<div class="waterfall-holder">', '<div class="waterfall">', "</div>", "</div>", '<div class="header">', '<div class="inner sync">', '<a class="logo" href="{{mingdaoUrl}}" target="_blank">', '<img src="{{imgBase}}/logo.png">', "</a>", '<div class="multi-noti">已选择 <b>1</b> 张<span>（最多 <i>10</i> 张）</span></div>', '<div class="multi-buttons">', '<div class="btn confirm">批量分享</div>', '<div class="btn wbtn cancel">取消</div>', "</div>", '<div class="notice" style="display: none"><i></i><span></span></div>', '<div class="switcher switch-order">', '<div class="title">图片排序</div>', '<div class="bar">', '<div class="text-1">推荐</div>', '<div class="text-2">自然</div>', '<div class="round"></div>', "</div>", "</div>", "</div>", '<div class="close", title="或按 ESC 键关闭">', "</div>", "</div>", "</div>"].join(""),
             "message-box": '<div id="MINGDAO_MESSAGE" style="display: none"></div>',
-            "waterfall-cell": ['<div class="cell">', '<div class="img-holder">', '<img src="{{imgUrl}}" class="cell-img" height="{{imgHeight}}"/>', '<div class="pinned-label">已分享</div>', '<div class="video-icon"></div>', '<div class="over">', '<div class="btn cell-pin-btn">分享</div>', '<div class="select-btn"></div>', "</div>", "</div>", '<div class="size">{{size.x}} x {{size.y}}</div>', '<div contenteditable="true" class="description">{{description}}</div>', "</div>"].join(""),
+            "waterfall-cell": ['<div class="cell">', '<div class="img-holder">', '<img src="{{imgUrl}}" class="cell-img" height="{{imgHeight}}"/>', '<div class="pinned-label">已分享</div>', '<div class="video-icon"></div>', '<div class="over">', '<div class="btn cell-pin-btn">分享</div>',
+                "</div>", "</div>", '<div class="size">{{size.x}} x {{size.y}}</div>', '<div contenteditable="true" class="description">{{description}}</div>', "</div>"].join(""),
             "empty-alert": ['<div class="empty">没有找到足够大的图片/视频</div>'].join(""),
             "floating-button": ['<div class="f-button {{extraClass}}">', "{{inner}}", "</div>"].join("")
         };
@@ -1791,7 +1810,7 @@
                             if (!c.$className.has(e, "MINGDAO-f-button")) if ("img" == e.tagName.toLowerCase()) {
                                 var f = d.getImgNaturalSize(e),
                                 i = d.getElemSize(e);
-                                if (f.x < a.settings.imageMinWidth || f.y < a.settings.imageMinHeight || i.x < a.settings.elemMinWidth || i.y < a.settings.elemMinHeight) return c.$hide(g);
+                               
                                 var j = d.getElPosition(e);
                                 c.$css.set(g, d.calButtonPos(j, h)),
                                 c.$show(g),
@@ -1802,8 +1821,8 @@
                             }
                         },
                         window.addEventListener ? b.body.addEventListener("mousemove", this.mouseMoveEvent) : b.body.attachEvent("onmousemove", this.mouseMoveEvent),
-                        c.$event.on(g, "click",
-                        function () {
+                        c.$event.on(g, "click", function () {
+                            debugger;
                             var b = d.buildImgUnit(this.imgElem);
                             b = d.handleUnitsByRule([b])[0],
                             b = d.fillDescriptions([b])[0],
@@ -1948,11 +1967,7 @@
                 global.settings.md && e.push("md=" + encodeURIComponent(global.settings.md)),
                 e = e.join("");
                 var h = "status=no,resizable=no,scrollbars=yes,personalbar=no,directories=no,location=no,toolbar=no,menubar=no,width=632,height=320,left=0,top=0";
-                debugger;
-                d ? global.ui.setMessage({
-                    url: e,
-                    features: h
-                }) : Page.showDialog();
+                win.Page.showDialog(f)
             },
             multi: function (c) {
                 for (var d = [], e = 0; e < c.length; e++) {
@@ -2073,6 +2088,7 @@
                         c.$style.set(document.body, "height", "100%"),
                         c.$event.on(e, "mouseover",
                         function () {
+                            debugger;
                             c.$show(g)
                         }),
                         c.$event.on(e, "mouseout",
