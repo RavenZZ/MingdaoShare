@@ -289,8 +289,6 @@ var UploadUI = {
                 if (!Mingdao.getUser(d)) {
                     Mingdao.currentUserId = d;
                     Mingdao.addUser(a);
-                    UploadUI.showUser(a);
-                    UploadUI.fillBoards(e)
                 }
             } else {
                 UploadUI.showErrorInfo(c)

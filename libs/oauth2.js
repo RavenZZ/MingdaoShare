@@ -1,22 +1,13 @@
 (function() {
     window.oauth2 = {
-
-        access_token_url: "https://api.mingdao.com/oauth2/access_token",
-        authorization_url: "https://api.mingdao.com/oauth2/authorize",
-        client_id: "FC07433C4B74",
-        client_secret: "501C8FA4F7E51BFCAE7EED783653150",
-        redirect_url: chrome.extension.getURL('index.html'),
-        grant_type:'authorization_code',
         scopes: [],
-
-        key: "FC07433C4B74",
 
         /**
          * Starts the authorization process.
          */
         start: function() {
             //window.close();
-            var url = this.authorization_url + "?client_id=" + this.client_id + "&redirect_uri=" + this.redirect_url + "&scopes=";
+            var url = this.authorization_url + "?client_id=" + app_key + "&redirect_uri=" + callbackUrl + "&scopes=";
             for(var i in this.scopes) {
                 url += this.scopes[i];
             }
@@ -48,11 +39,11 @@
 
                 var that = this;
                 var data = new FormData();
-                data.append('app_Key', this.key);
-                data.append('app_secret', this.client_secret);
-                data.append('grant_type', this.grant_type);
+                data.append('app_Key', app_key);
+                data.append('app_secret', app_secret);
+                data.append('grant_type', response_type);
                 data.append('code',code);
-                data.append('redirect_uri', this.redirect_url);
+                data.append('redirect_uri', callbackUrl);
                 data.append('format', 'json');
 
                 // Send request for authorization token.
@@ -65,17 +56,25 @@
                             } else {
                                 var result = JSON.parse(xhr.responseText);
                                 var token = result.access_token;// xhr.responseText.match(/access_token=([^&]*)/)[1];
-                                window.localStorage.setItem('token', token);
-                                window.localStorage.setItem('tokenTime', +new Date);
-                                window.location = '/share.html';
-                                //removeTab();
+                                Mingdao.getUserInfo({ accessToken: token }, function (b, c, e) {
+                                    if (b == "success") {
+                                        var d = c.id;
+                                        if (!Mingdao.getUser(d)) {
+                                            Mingdao.currentUserId = d;
+                                            Mingdao.addUser(c);
+                                        }
+                                        window.location = '/share.html';
+                                    } else {
+                                        UploadUI.showErrorInfo(c)
+                                    }
+                                });
                             }
                         } else {
                             removeTab();
                         }
                     }
                 });
-                xhr.open('POST', this.access_token_url, true);
+                xhr.open('POST', access_token_url, true);
                 xhr.send(data);
             }
         },
