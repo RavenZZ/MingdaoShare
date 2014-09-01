@@ -8,8 +8,8 @@
                 height: document.body.scrollHeight + "px"
             }).show();
             var param = [
-               "media=" + obj.media,
-               "url=" + obj.url,
+               "media=" + escape(obj.media),
+               "url=" + escape(obj.url),
                "w=" + obj.w,
                "h=" + obj.h,
                "description=" + obj.description
@@ -1532,10 +1532,7 @@
                     }), void a(d)) : a([])
                 },
                 buildImgUnit: function (b) {
-                    if (c.$findParent(b,
-                    function (b) {
-                        return b.id == a.settings.id
-                    })) return null;
+                    
                     if (!b.src) return null;
                     var d = this.getImgNaturalSize(b);
                     return d ? {
@@ -1810,9 +1807,13 @@
                             if (!c.$className.has(e, "MINGDAO-f-button")) if ("img" == e.tagName.toLowerCase()) {
                                 var f = d.getImgNaturalSize(e),
                                 i = d.getElemSize(e);
-                               
+                                if (!c.$findParent(b,function (b) {
+                                         return b.id == a.settings.id
+                                })) return;
+
                                 var j = d.getElPosition(e);
                                 c.$css.set(g, d.calButtonPos(j, h)),
+                                
                                 c.$show(g),
                                 g.imgElem = e
                             } else {
