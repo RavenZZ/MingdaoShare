@@ -51,7 +51,8 @@
 		"libs/*",
 		"images/*",
 		"login.html",
-		"share.html"
+		"share.html",
+		"index.html"
 
 	]
 }

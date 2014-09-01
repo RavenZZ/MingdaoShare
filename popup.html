@@ -72,12 +72,16 @@
       header {
         position: relative;
       }
+	    .page-content
+	    {
+            background:url(images/page.png) no-repeat 4px center;
+	    }
       #ext_name {
         height: 24px;
         line-height: 24px;
-        padding-left: 30px;
         font-size: 16px;
-        background: url(/images/logo.png) no-repeat left center;
+        margin-left:5px;
+        float:left;
       }
       #preferences {
         position: absolute;
@@ -143,11 +147,16 @@
 </head>
 <body>
     <header>
-      <div id="ext_name">明道网页工具</div>
+        <img id="logo" src="images/logo.png" style="float:left;" width="24" height="24" />
+        <div id="ext_name">明道网页工具</div>
+        <div style="clear:both;"></div>
     </header>
     <div id="menu" class="popup">
       <ul>
         <li class="separator"></li>
+        <li id="pin-page-content" class="button page-content disabled">
+            <span class="title">网页</span>
+        </li>
         <li id="pin-all-btn" class="button disabled">
           <span class="title">分享图片/视频</span>
         </li>

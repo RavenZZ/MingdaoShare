@@ -1,11 +1,13 @@
 ﻿(function () {
     "use strict";
     var enableCapture = function () {
+        $("pin-page-content").classList.remove("disabled");
         $("capture-area-item").classList.remove("disabled");
         $("capture-viewport-item").classList.remove("disabled");
         $("capture-fullpage-item").classList.remove("disabled")
     };
     var disableCapture = function () {
+        $("pin-page-content").classList.add("disabled");
         $("capture-area-item").classList.add("disabled");
         $("capture-viewport-item").classList.add("disabled");
         $("capture-fullpage-item").classList.add("disabled")
@@ -20,6 +22,41 @@
         
     }
     Menu.init = function () {
+        var logoUpdate = $("menu");
+        logoUpdate.addEventListener("mouseenter", function () {
+            var logo = $("logo");
+            logo.src = "images/logo2.gif";
+
+        });
+        logoUpdate.addEventListener("mouseleave", function () {
+            var logo = $("logo");
+            logo.src = "images/logo.png";
+        });
+        var pinPageContent = $("pin-page-content");
+        pinPageContent.addEventListener("click",function () {
+            if (this.classList.contains("disabled")) {
+                return false
+            }
+            chrome.tabs.query({
+                active: true,
+                currentWindow: true
+            },
+            function (tabs) {
+                var tab = tabs[0];
+                var url = tab.url.replace(/^https?:\/\/(www)?/, "");
+                if (url.indexOf(DOMAIN) == 0) {
+                    return
+                }
+                chrome.tabs.sendMessage(tab.id, {
+                    msg: "shareDocumentUrl"
+                },
+                function (response) { })
+            });
+            setTimeout(function () {
+                window.close()
+            },
+            100)
+        });
         var pinAllBtn = $("pin-all-btn");
         pinAllBtn.addEventListener("click",function () {
             if (this.classList.contains("disabled")) {

@@ -43,10 +43,10 @@
 }
 .share-dialog .box-title .text {
 	margin:0;
-	padding-left:50px;
+	padding-left:30px;
 	font-size:18px;
 	line-height:26px;
-	background:url(chrome-extension://__MSG_@@extension_id__/images/logo.png) no-repeat 0 50%;
+	background:url(chrome-extension://__MSG_@@extension_id__/images/ming.png) no-repeat 0 50%;
 	float:left;
 }
 .share-dialog .box-title #user_icon {

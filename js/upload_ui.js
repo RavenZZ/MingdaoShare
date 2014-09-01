@@ -138,9 +138,12 @@ var BoardPicker = {
         }
         this._items = 0;
         this.listEl.innerHTML = "";
+        var everyone = { id: '1', name: '所有同事' };
+        BoardPicker._injectItem(everyone.id,everyone.name);
         if (c && c.length > 0) {
             this.boards = c;
             var a = {};
+            a[everyone.id] = everyone;
             c.forEach(function (d) {
                 BoardPicker._injectItem(d.id, d.name);
                 a[d.id] = d
