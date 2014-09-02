@@ -78,8 +78,8 @@ window.addEventListener("load", function () {
     } else {
         if (data && data.canvas) {
             Mingdao.setCanvas(data.info.srcUrl, ShowImage);
-        } else {
-            ShowImage();
+        } else { //链接
+            Mingdao.setCanvas('',ShowImage);
         }
     }
 });
