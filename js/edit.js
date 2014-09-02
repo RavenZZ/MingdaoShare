@@ -1396,7 +1396,7 @@ window.addEventListener("load", function () {
         return false
     });
     setTimeout(function () {
-        Page.showDialog()
+        Page.showDialog();
     },
     100);
     var a = Mingdao.getUser();
@@ -1408,17 +1408,11 @@ window.addEventListener("load", function () {
             UploadUI.getUserInfo({ accessToken: token });
         }
     }
-    var c = new Image();
-    if (localStorage.screenshotFormat == "jpeg") {
-        c.src = $("canvas").toDataURL("image/jpeg", 1)
-    } else {
-        c.src = $("canvas").toDataURL("image/png")
-    }
+    
     $("btn_upload").addEventListener("click",
     function (d) {
         photoshop.draw();
         photoshop.finish();
-        bg.screenshot.canvas = photoshop.canvas;
         Page.showDialog();
         d.preventDefault()
     });

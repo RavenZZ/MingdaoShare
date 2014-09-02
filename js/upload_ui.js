@@ -523,7 +523,12 @@ var UploadUI = {
         querySelector(".pin-form").style.display = "none"
     },
     getImageData: function () {
-        var a = Mingdao.getCanvas();
+        var a;
+        try {
+            a = Mingdao.getCanvas() || parent.photoshop.getDataUrl();
+        } catch (e) {
+
+        }
         if (a)
             return atob(a.split(",")[1])
         return null;

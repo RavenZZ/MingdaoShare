@@ -10,8 +10,13 @@ window.addEventListener("load", function () {
         data = JSON.parse(pageData);
     var ShowImage = function () {
         var c = new Image();
+        var Canvas;
+        try {
+            Canvas = Mingdao.getCanvas() || parent.photoshop.getDataUrl();
+        } catch (e) {
+
+        }
         
-        var Canvas = Mingdao.getCanvas();
         if (Canvas) {
             c.src = Canvas;
             b.appendChild(c);

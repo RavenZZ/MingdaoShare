@@ -134,12 +134,7 @@
                     (callback && callback())
                 };
             } else {
-                if (typeof screenshot != 'undefined')
-                    screenshot.canvas = null;
-                else if (typeof bg != 'undefined')
-                    bg.screenshot.canvas = null;
-                else
-                    Mingdao.canvas = null;
+                Mingdao.canvas = null;
                 (callback && callback())
             }
         },
