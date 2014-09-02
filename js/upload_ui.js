@@ -292,6 +292,8 @@ var UploadUI = {
                 if (!Mingdao.getUser(d)) {
                     Mingdao.currentUserId = d;
                     Mingdao.addUser(a);
+                    UploadUI.showShare(a);
+                    UploadUI.fillBoards(e);
                 }
             } else {
                 UploadUI.showErrorInfo(c)
@@ -359,7 +361,7 @@ var UploadUI = {
         f.addEventListener("select",
         function (r) {
             var q = r.detail;
-            var s = q.recommend_tags || [];
+            var s = q && q.recommend_tags || [];
             while (l.lastChild) {
                 l.lastChild.remove()
             }

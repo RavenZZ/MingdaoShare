@@ -28,11 +28,15 @@ window.addEventListener("load", function () {
             }
         }
 
-       
+        var pageData = Mingdao.getPageData();
+        var data;
+        if (pageData)
+            data = JSON.parse(pageData);
         if (data) {
             var data = JSON.parse(pageData);
             if (data.info.selectionText)
                 $("description").value = data.info.selectionText;
+            else
                 $("description").value = data.tab.title;
             if (data.info.linkUrl)
                 $("url").value = data.info.linkUrl;

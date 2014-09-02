@@ -7,11 +7,9 @@
          */
         start: function() {
             //window.close();
-            var url = this.authorization_url + "?client_id=" + app_key + "&redirect_uri=" + callbackUrl + "&scopes=";
-            for(var i in this.scopes) {
-                url += this.scopes[i];
-            }
-            window.location = url;
+            //var url = unescape(Request["authorize"]);
+            var obj = window.dialogArguments;
+            window.location = obj.authorize;
             //chrome.tabs.create({url: url, active: true});
         },
 
@@ -27,9 +25,7 @@
         finish: function(url) {
 
             function removeTab() {
-                chrome.tabs.getCurrent(function(tab) {
-                    chrome.tabs.remove(tab.id);
-                });
+                window.close();
             };
 
             if(url.match(/\?error=(.+)/)) {
@@ -56,18 +52,10 @@
                             } else {
                                 var result = JSON.parse(xhr.responseText);
                                 var token = result.access_token;// xhr.responseText.match(/access_token=([^&]*)/)[1];
-                                Mingdao.getUserInfo({ accessToken: token }, function (b, c, e) {
-                                    if (b == "success") {
-                                        var d = c.id;
-                                        if (!Mingdao.getUser(d)) {
-                                            Mingdao.currentUserId = d;
-                                            Mingdao.addUser(c);
-                                        }
-                                        window.location = '/share.html';
-                                    } else {
-                                        UploadUI.showErrorInfo(c)
-                                    }
-                                });
+                                //window.returnValue = token;
+                                Mingdao.setToken(token);
+                                window.returnValue = token;
+                                removeTab();
                             }
                         } else {
                             removeTab();

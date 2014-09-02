@@ -48,6 +48,27 @@ var bookmarkletUrl = chrome.extension.getURL('js/weight.js?') + Math.floor(new D
 }());
 chrome.runtime.onMessage.addListener(function (f, g, c) {
     switch (f.msg) {
+        case "show_modal_dialog":
+            //window.open("login.html?authorize="+escape(f.url)+"", "明道授权", "width=650,height=500,toolbar=no,menubar=no,scrollbars=0,resizeble=no,location=no,status=no");
+            var obj = new Object();
+            obj.authorize = f.url;
+            var token = window.showModalDialog("login.html", obj, "dialogWidth=600px;dialogHeight=500px");
+            c(token);
+            break;
+        //case "auth_success":
+        //    chrome.tabs.query({
+        //        active: true,
+        //        currentWindow: true
+        //    },
+        //    function (tabs) {
+        //        console.dir(tabs);
+        //        chrome.tabs.sendMessage(tabs[0].id, {
+        //            msg: "auth_success"
+        //        },
+        //        function (k) { })
+        //    });
+        //    c();
+        //    break;
         case "open_new_url":
             chrome.tabs.create({
                 url: f.url,

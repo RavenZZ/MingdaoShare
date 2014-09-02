@@ -307,6 +307,9 @@ var page = {
                 case "shareDocumentUrl":
                     page.createFrame();
                     break;
+                //case "auth_success":
+                //    Mingdao.accessTokenCallback("success", Mingdao.getToken());
+                //    break;
                 case "capture_viewport":
                     a(merge(page.getViewportSize(), {
                         page_info: f

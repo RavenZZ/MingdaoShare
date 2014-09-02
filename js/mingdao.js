@@ -23,6 +23,9 @@
             var token = localStorage.getItem("token");
             return token;
         },
+        setToken: function (token) {
+            localStorage.setItem("token", token);
+        },
         getAllUsers: function () {
             var n = localStorage.getItem("mingdao_userInfo");
             if (n) {
@@ -107,7 +110,7 @@
         }
     };
     var b = window.Mingdao = {
-        canvas:document.createElement("canvas"),
+        canvas:null,
         currentUserId: null,
         redirectUrl: callbackUrl,
         setCanvas: function (src,callback) {
@@ -119,8 +122,10 @@
                     c = screenshot.canvas;
                 else if (typeof bg != 'undefined')
                     c = bg.screenshot.canvas;
-                else
-                    c = Mingdao.canvas;
+                else {
+                    Mingdao.canvas = document.createElement("canvas");
+                    c = Mingdao.canvas
+                }
                 c.width = this.width;
                 c.height = this.height;
                 var h = c.getContext("2d");
@@ -134,7 +139,9 @@
                 return screenshot.canvas.toDataURL("image/png");
             if (typeof bg != 'undefined')
                 return bg.screenshot.canvas.toDataURL("image/png");
-            return Mingdao.canvas.toDataURL("image/png");
+            if(Mingdao.canvas)
+                return Mingdao.canvas.toDataURL("image/png");
+            return null;
         },
         removeCanvas: function () {
             c.removeCanvas();
@@ -148,6 +155,9 @@
         accessTokenCallback: null,
         getToken: function () {
             return c.getToken();
+        },
+        setToken: function (token) {
+            return c.setToken(token);
         },
         addUser: function (m) {
             return c.addUser(m)
@@ -169,12 +179,11 @@
             return c.removeUser(m)
         },
         getAccessToken: function (n) {
-            b.accessTokenCallback = n;
+            Mingdao.accessTokenCallback = n;
             var m = authorizeUrl + "?app_key=" + app_key + "&redirect_uri=" + callbackUrl + "&response_type=" + response_type;
-            //chrome.tabs.create({
-            //    url: m
-            //})
-            window.location = m;
+            chrome.extension.sendMessage({ msg: "show_modal_dialog", url: m }, function (token) {
+                Mingdao.accessTokenCallback("success", { accessToken: Mingdao.getToken() });
+            });
         },
         parseRedirectUrl: function (p) {
             var m = false;
