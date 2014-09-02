@@ -1839,7 +1839,7 @@
                         '<a href="javascript:void(0);" target="_blank">',
                         '</div>',
                         '</div>',
-                        '<iframe id="share-to-mingdao" sandbox="allow-same-origin allow-scripts" src="about:blank" frameborder="0" width="600" height="450"></iframe></div>',
+                        '<iframe id="share-to-mingdao" sandbox="allow-same-origin allow-scripts" src="about:blank" frameborder="0" width="580" height="300"></iframe></div>',
                         '<div id="overlay" style="width: 1920px; height: 949px; display: none;"></div>'
                 ];
                     wrapper.innerHTML = html.join("");

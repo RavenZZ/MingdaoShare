@@ -596,7 +596,6 @@ textarea:focus,input:focus {
 .dialog-box .box-inner {
 	position:relative;
 	padding:30px;
-    padding-top:130px;
 }
 .dialog-box .pbt {
 	min-height:170px;
