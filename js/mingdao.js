@@ -110,31 +110,47 @@
         canvas:document.createElement("canvas"),
         currentUserId: null,
         redirectUrl: callbackUrl,
-        setCanvas: function (src,callback) {
-            var img = new Image();
-            img.src = src;
-            img.onload = function () {
-                var c;
+        setCanvas: function (src, callback) {
+            if (src) {
+                var img = new Image();
+                img.src = src;
+                img.onload = function () {
+                    var c;
+                    if (typeof screenshot != 'undefined')
+                        c = screenshot.canvas;
+                    else if (typeof bg != 'undefined')
+                        c = bg.screenshot.canvas;
+                    else
+                        c = Mingdao.canvas;
+                    c.width = this.width;
+                    c.height = this.height;
+                    var h = c.getContext("2d");
+                    h.drawImage(this, 0, 0, this.width, this.height);
+                    (callback && callback())
+                };
+            } else {
                 if (typeof screenshot != 'undefined')
-                    c = screenshot.canvas;
+                    screenshot.canvas = '';
                 else if (typeof bg != 'undefined')
-                    c = bg.screenshot.canvas;
+                    bg.screenshot.canvas = '';
                 else
-                    c = Mingdao.canvas;
-                c.width = this.width;
-                c.height = this.height;
-                var h = c.getContext("2d");
-                h.drawImage(this, 0, 0, this.width, this.height);
-                (callback&&callback())
-            };
-            
+                    Mingdao.canvas = '';
+                (callback && callback())
+            }       
         },
         getCanvas: function () {
+            var canvas = null;
             if (typeof screenshot != 'undefined')
-                return screenshot.canvas.toDataURL("image/png");
+                canvas = screenshot.canvas;
             if (typeof bg != 'undefined')
-                return bg.screenshot.canvas.toDataURL("image/png");
-            return Mingdao.canvas.toDataURL("image/png");
+                canvas = bg.screenshot.canvas;
+            if (typeof Mingdao != 'undefined') 
+                canvas = Mingdao.canvas;
+
+            if (canvas) 
+                return canvas.toDataURL("image/png");
+            else 
+                return '';
         },
         removeCanvas: function () {
             c.removeCanvas();
