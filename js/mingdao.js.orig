@@ -123,10 +123,8 @@
                         c = screenshot.canvas;
                     else if (typeof bg != 'undefined')
                         c = bg.screenshot.canvas;
-                    else {
-                        Mingdao.canvas = document.createElement("canvas");
-                        c = Mingdao.canvas
-                    }
+                    else
+                        c = Mingdao.canvas;
                     c.width = this.width;
                     c.height = this.height;
                     var h = c.getContext("2d");
@@ -135,19 +133,40 @@
                 };
             } else {
                 if (typeof screenshot != 'undefined')
-                    screenshot.canvas = null;
+                    screenshot.canvas = '';
                 else if (typeof bg != 'undefined')
-                    bg.screenshot.canvas = null;
+<<<<<<< HEAD
+                    c = bg.screenshot.canvas;
+                else {
+                    Mingdao.canvas = document.createElement("canvas");
+                    c = Mingdao.canvas
+                }
+                c.width = this.width;
+                c.height = this.height;
+                var h = c.getContext("2d");
+                h.drawImage(this, 0, 0, this.width, this.height);
+                (callback&&callback())
+            };
+            
+=======
+                    bg.screenshot.canvas = '';
                 else
-                    Mingdao.canvas = null;
+                    Mingdao.canvas = '';
                 (callback && callback())
-            }
+            }       
+>>>>>>> e1990f8416f54a53c107b6f22eae781850b6baae
         },
         getCanvas: function () {
             var canvas = null;
             if (typeof screenshot != 'undefined')
                 canvas = screenshot.canvas;
             if (typeof bg != 'undefined')
+<<<<<<< HEAD
+                return bg.screenshot.canvas.toDataURL("image/png");
+            if(Mingdao.canvas)
+                return Mingdao.canvas.toDataURL("image/png");
+            return null;
+=======
                 canvas = bg.screenshot.canvas;
             if (typeof Mingdao != 'undefined') 
                 canvas = Mingdao.canvas;
@@ -156,6 +175,7 @@
                 return canvas.toDataURL("image/png");
             else 
                 return '';
+>>>>>>> e1990f8416f54a53c107b6f22eae781850b6baae
         },
         removeCanvas: function () {
             c.removeCanvas();
