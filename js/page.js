@@ -6,7 +6,15 @@ var Page = {
         a.style.height = document.body.scrollHeight + "px";
         a.style.display = "block";
         $("share-to-mingdao").src = chrome.extension.getURL("share.html");
-        $("pin_wrapper").style.display = "block"
+        var easydialog = new easyDialog({ drag: true });
+        easydialog.open({
+            container: {
+                id: "mindao-share",
+                header: "分享到明道",
+                content: $("pin_wrapper").innerHTML
+            }
+        });
+        //$("pin_wrapper").style.display = "block"
     },
     closeDialog: function () {
         var a = $("overlay");
