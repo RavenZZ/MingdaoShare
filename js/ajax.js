@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
     function d(q) {
         if (arguments.length < 1 || q.constructor != Object) {
             throw new Error("Bad parameter.")

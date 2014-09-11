@@ -1,1 +1,1 @@
-window.oauth2.finish(window.location.href);
+﻿window.oauth2.finish(window.location.href);

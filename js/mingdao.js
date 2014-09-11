@@ -317,8 +317,8 @@
         },
         upload: function (gid, msg, link, toweibo, imgData, callback) {
             var r = c.getUser(Mingdao.currentUserId);
-            var time = new Date().getTime() + "." + localStorage.screenshotFormat;
-            var imageType = "image/" + localStorage.screenshotFormat;
+            var time = new Date().getTime() + "." + (localStorage.screenshotFormat || "png");
+            var imageType = "image/" + (localStorage.screenshotFormat || "png");
             
             var parameters = {
                 "access_token": r.accessToken,

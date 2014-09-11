@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 var HIDE_ERROR_INFO_DELAY_TIME = 5000;
 var ShareButton = {
     pin: null,

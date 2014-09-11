@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 var HotKey = (function () {
     return {
         setup: function () {

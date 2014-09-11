@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 var DOMAIN = "mingdao.com";
 var imgHosts = {
     hbimg: "img.hb.aicdn.com"

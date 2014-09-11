@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
     chrome.runtime.onConnect.addListener(function (a) {
         a.onMessage.addListener(function (b) {
             if (b.msg == "is_page_capturable") {

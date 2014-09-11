@@ -1,4 +1,4 @@
-"use strict"; (function () {
+﻿"use strict"; (function () {
     var a = function (b) {
         var c = b.keyCode;
         if (b.ctrlKey && b.shiftKey && (c == 82 || c == 86 || c == 72)) {

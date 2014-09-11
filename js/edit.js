@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 var bg = chrome.extension.getBackgroundPage();
 var Canvas = (function () {
     var a = function (d, e) {
