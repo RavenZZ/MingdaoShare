@@ -1,52 +1,54 @@
 ﻿{
-  "name": "明道",
-  "description": "Shows some of the features of the Context Menus API",
-  "version": "0.6",
-  "background": {
-      "scripts": [
-		  "js/ajax.js",
-		  "js/background.js",
-		  "js/hotkeys.js",
-		  "js/utils.js",
-		  "js/mingdao.js"
-	  ]
-   },
-  "manifest_version": 2,
-  "browser_action": {
-          "default_icon":"images/icon.png",
-          "default_title": "MD",     
-          "default_popup": "popup.html"      
-        },
-	"permissions":[
+	"name": "明道",
+	"description": "Shows some of the features of the Context Menus API",
+	"version": "0.6",
+	"background": {
+		"scripts": [
+			"js/ajax.js",
+			"js/background.js",
+			"js/hotkeys.js",
+			"js/utils.js",
+			"js/mingdao.js"
+		]
+	},
+	"manifest_version": 2,
+	"browser_action": {
+		"default_icon": "images/icon.png",
+		"default_title": "MD",
+		"default_popup": "popup.html"
+	},
+	"permissions": [
 		"contextMenus",
-        "https://api.mingdao.com/oauth2/authorize",
-        "tabs",
-		"http://*/*", 
-		"https://*/*", 
-		"activeTab", 
+		"https://api.mingdao.com/oauth2/authorize",
+		"tabs",
+		"http://*/*",
+		"https://*/*",
+		"activeTab",
 		"\u003Call_urls>"
-    ],
+	],
 	"icons": {
-          "16": "images/icon.png",
-          "48": "images/icon.png",
-          "128": "images/icon.png"
-        },
-	"content_scripts":[{
-		 "exclude_globs": [ "http://mingdao.com*", "http://www.mingdao.com*"],
-		 "include_globs": [ "*" ],
-		 "matches":["<all_urls>"],
-		"css": [ "css/capture.css","css/page.css" ],
-        "js":[
-			"js/isload.js",
-			"js/content_script.js",
-			"js/script.js",
-			"js/shortcut.js",
-			"js/page.js"
+		"16": "images/icon.png",
+		"48": "images/icon.png",
+		"128": "images/icon.png"
+	},
+	"content_scripts": [
+		{
+			"exclude_globs": [ "http://mingdao.com*", "http://www.mingdao.com*"],
+			"include_globs": [ "*" ],
+			"matches": ["<all_urls>"],
+			"css": [ "css/capture.css", "css/page.css" ],
+			"js": [
+				"js/isload.js",
+				"js/content_script.js",
+				"js/script.js",
+				"js/shortcut.js",
+				"js/page.js"
 			],
-        "run_at":"document_end",
-		"all_frames":true
-    }],
-	"web_accessible_resources":[
+			"run_at": "document_end",
+			"all_frames": true
+		}
+	],
+	"web_accessible_resources": [
 		"css/*",
 		"js/*",
 		"libs/*",
