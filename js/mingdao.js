@@ -406,7 +406,7 @@
                 url: g,
                 headers: {
                     access_token: q,
-                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Type": "application/x-www-form-urlencoded"
                 },
                 data: m,
                 success: function (s) {
