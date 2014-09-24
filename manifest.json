@@ -1,7 +1,7 @@
 ﻿{
 	"name": "快捷分享 - 明道",
 	"description": "使用浏览器扩展插件【快捷分享】一键将网页精彩内容分享到明道，您可以分享网页链接、分享网页精彩图片、分享网页各个区域截图等至明道",
-	"version": "0.9.0",
+	"version": "0.9.2",
 	"background": {
 		"scripts": [
 			"js/ajax.js",
@@ -27,9 +27,9 @@
 		"\u003Call_urls>"
 	],
 	"icons": {
-		"16": "images/icon.png",
-		"48": "images/icon.png",
-		"128": "images/icon.png"
+		"16": "images/16_16.png",
+		"48": "images/48_48.png",
+		"128": "images/128_128.png"
 	},
 	"content_scripts": [
 		{

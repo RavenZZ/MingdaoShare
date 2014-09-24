@@ -1,7 +1,9 @@
 ﻿"use strict"; (function () {
     var domain = "mingdao.com";
-    window.app_key = "FC07433C4B74";
-    window.app_secret = "501C8FA4F7E51BFCAE7EED783653150";
+	window.app_key = "FC07433C4B74";
+	window.app_secret = "501C8FA4F7E51BFCAE7EED783653150";
+//	window.app_key = "820FB90D42C2";
+//	window.app_secret = "5F51FFBCC9D52E99E357592374AF8A";
     window.response_type = "authorization_code";
     window.callbackUrl = chrome.extension.getURL('index.html');
     window.authorizeUrl = "https://api." + domain + "/oauth2/authorize";
