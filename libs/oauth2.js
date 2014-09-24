@@ -9,7 +9,7 @@
             //window.close();
             //var url = unescape(Request["authorize"]);
             var obj = window.dialogArguments;
-            window.location = obj.authorize;
+            window.location = unescape(Request["authorize"]);
             //chrome.tabs.create({url: url, active: true});
         },
 
@@ -25,6 +25,8 @@
         finish: function(url) {
 
             function removeTab() {
+                window.opener = null;
+                window.open("", "_self");
                 window.close();
             };
 
@@ -52,9 +54,7 @@
                             } else {
                                 var result = JSON.parse(xhr.responseText);
                                 var token = result.access_token;// xhr.responseText.match(/access_token=([^&]*)/)[1];
-                                //window.returnValue = token;
                                 Mingdao.setToken(token);
-                                window.returnValue = token;
                                 removeTab();
                             }
                         } else {

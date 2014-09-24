@@ -49,11 +49,11 @@ var bookmarkletUrl = chrome.extension.getURL('js/weight.js?') + Math.floor(new D
 chrome.runtime.onMessage.addListener(function (f, g, c) {
     switch (f.msg) {
         case "show_modal_dialog":
-            //window.open("login.html?authorize="+escape(f.url)+"", "明道授权", "width=650,height=500,toolbar=no,menubar=no,scrollbars=0,resizeble=no,location=no,status=no");
-            var obj = new Object();
-            obj.authorize = f.url;
-            var token = window.showModalDialog("login.html", obj, "dialogWidth=600px;dialogHeight=500px");
-            c(token);
+            window.open("login.html?authorize="+escape(f.url)+"", "明道授权", "width=650,height=500,toolbar=no,menubar=no,scrollbars=0,resizeble=no,location=no,status=no");
+            //var obj = new Object();
+            //obj.authorize = f.url;
+            //var token = window.showModalDialog("login.html", "明道授权", "dialogWidth=600px;dialogHeight=500px");
+            //c(token);
             break;
         //case "auth_success":
         //    chrome.tabs.query({

@@ -20,13 +20,24 @@
     };
     var c = {
         getToken: function () {
-            var token = localStorage.getItem("token");
-            return token;
+            var time = localStorage.getItem("tokentime");
+            if (time) {
+                debugger;
+                if ((new Date().getTime() - parseInt(time)) > 432000000)
+                localStorage.removeItem("token");
+                var token = localStorage.getItem("token");
+                return token;
+            }
+            return null;
         },
         setToken: function (token) {
+            localStorage.setItem("tokentime",new Date().getTime());
             localStorage.setItem("token", token);
         },
         getAllUsers: function () {
+            var time = localStorage.getItem("tokentime");
+            if ((new Date().getTime() - time) > 432000000)
+                this.removeAllUsers();
             var n = localStorage.getItem("mingdao_userInfo");
             if (n) {
                 n = JSON.parse(n);
@@ -39,6 +50,9 @@
                 return n
             }
             return {}
+        },
+        removeAllUsers: function () {
+            localStorage.removeItem("mingdao_userInfo");
         },
         getUser: function (n) {
             var o = c.getAllUsers();
@@ -166,6 +180,7 @@
             return c.getToken();
         },
         setToken: function (token) {
+            c.removeAllUsers();
             return c.setToken(token);
         },
         addUser: function (m) {
@@ -190,9 +205,14 @@
         getAccessToken: function (n) {
             Mingdao.accessTokenCallback = n;
             var m = authorizeUrl + "?app_key=" + app_key + "&redirect_uri=" + callbackUrl + "&response_type=" + response_type;
-            chrome.extension.sendMessage({ msg: "show_modal_dialog", url: m }, function (token) {
-                Mingdao.accessTokenCallback("success", { accessToken: Mingdao.getToken() });
-            });
+            chrome.extension.sendMessage({ msg: "show_modal_dialog", url: m });
+            var _interval = setInterval(function () {
+                var token = Mingdao.getToken();
+                if (token) {
+                    Mingdao.accessTokenCallback("success", { accessToken: Mingdao.getToken() });
+                    clearInterval(_interval);
+                }
+            },100);
         },
         parseRedirectUrl: function (p) {
             var m = false;
