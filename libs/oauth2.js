@@ -25,8 +25,8 @@
         finish: function(url) {
 
             function removeTab() {
-                window.opener = null;
-                window.open("", "_self");
+//                window.opener = null;
+//                window.open("", "_self");
                 window.close();
             };
 

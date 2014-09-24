@@ -1,7 +1,5 @@
 ﻿"use strict"; (function () {
     var domain = "mingdao.com";
-    //window.app_key = "E9EEBF47C2CB";
-    //window.app_secret = "8B9E15C9F494AAF867D141FE7F564AB";
     window.app_key = "FC07433C4B74";
     window.app_secret = "501C8FA4F7E51BFCAE7EED783653150";
     window.response_type = "authorization_code";
