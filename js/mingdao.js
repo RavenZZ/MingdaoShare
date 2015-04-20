@@ -1,17 +1,19 @@
 ﻿"use strict"; (function () {
     var domain = "mingdao.com";
+    
     //window.app_key = "E9EEBF47C2CB";
     //window.app_secret = "8B9E15C9F494AAF867D141FE7F564AB";
+
     window.app_key = "FC07433C4B74";
     window.app_secret = "501C8FA4F7E51BFCAE7EED783653150";
     window.response_type = "authorization_code";
     window.callbackUrl = chrome.extension.getURL('index.html');
     window.authorizeUrl = "https://api." + domain + "/oauth2/authorize";
     window.access_token_url = "https://api." + domain + "/oauth2/access_token";
-    var acctountUrl = "http://api." + domain + "/passport/detail";
-    var groupUrl = "http://api." + domain + "/group/my_joined";
-    var uploadUrl = "http://api." + domain + "/post/upload";
-    var postUrl = "http://api." + domain + "/post/update";
+    var acctountUrl = "https://api." + domain + "/passport/detail";
+    var groupUrl = "https://api." + domain + "/group/my_joined";
+    var uploadUrl = "https://api." + domain + "/post/upload";
+    var postUrl = "https://api." + domain + "/post/update";
     var e = "Mingdao_Bobobee_Boundary";
     var j = function (m) {
         for (var n in m) {
