@@ -1,86 +1,85 @@
-﻿(function() {
-    window.oauth2 = {
-        scopes: [],
+﻿(function () {
+	window.oauth2 = {
+		scopes: [],
 
-        /**
-         * Starts the authorization process.
-         */
-        start: function() {
-            //window.close();
-            //var url = unescape(Request["authorize"]);
-            var obj = window.dialogArguments;
-            window.location = unescape(Request["authorize"]);
-            //chrome.tabs.create({url: url, active: true});
-        },
+		/**
+		 * Starts the authorization process.
+		 */
+		start: function () {
+			//window.close();
+			//var url = unescape(Request["authorize"]);
+			var obj = window.dialogArguments;
+			window.location = unescape(Request["authorize"]);
+			//chrome.tabs.create({url: url, active: true});
+		},
 
-        /**
-         * Finishes the oauth2 process by exchanging the given authorization code for an
-         * authorization token. The authroiztion token is saved to the browsers local storage.
-         * If the redirect page does not return an authorization code or an error occures when 
-         * exchanging the authorization code for an authorization token then the oauth2 process dies
-         * and the authorization tab is closed.
-         * 
-         * @param url The url of the redirect page specified in the authorization request.
-         */
-        finish: function(url) {
+		/**
+		 * Finishes the oauth2 process by exchanging the given authorization code for an
+		 * authorization token. The authroiztion token is saved to the browsers local storage.
+		 * If the redirect page does not return an authorization code or an error occures when
+		 * exchanging the authorization code for an authorization token then the oauth2 process dies
+		 * and the authorization tab is closed.
+		 *
+		 * @param url The url of the redirect page specified in the authorization request.
+		 */
+		finish: function (url) {
 
-            function removeTab() {
-                window.opener = null;
-                window.open("", "_self");
-                window.close();
-            };
+			function removeTab() {
+				//window.opener = null;
+				window.open(location, "_self").close();
+			};
 
-            if(url.match(/\?error=(.+)/)) {
-                removeTab();
-            } else {
-                var code = Request['code'];
+			if (url.match(/\?error=(.+)/)) {
+				removeTab();
+			} else {
+				var code = Request['code'];
 
-                var that = this;
-                var data = new FormData();
-                data.append('app_Key', app_key);
-                data.append('app_secret', app_secret);
-                data.append('grant_type', response_type);
-                data.append('code',code);
-                data.append('redirect_uri', callbackUrl);
-                data.append('format', 'json');
+				var that = this;
+				var data = new FormData();
+				data.append('app_Key', app_key);
+				data.append('app_secret', app_secret);
+				data.append('grant_type', response_type);
+				data.append('code', code);
+				data.append('redirect_uri', callbackUrl);
+				data.append('format', 'json');
 
-                // Send request for authorization token.
-                var xhr = new XMLHttpRequest();
-                xhr.addEventListener('readystatechange', function(event) {
-                    if(xhr.readyState == 4) {
-                        if (xhr.status == 200) {
-                            if(xhr.responseText.match(/error=/)) {
-                                removeTab();
-                            } else {
-                                var result = JSON.parse(xhr.responseText);
-                                var token = result.access_token;// xhr.responseText.match(/access_token=([^&]*)/)[1];
-                                Mingdao.setToken(token);
-                                removeTab();
-                            }
-                        } else {
-                            removeTab();
-                        }
-                    }
-                });
-                xhr.open('POST', access_token_url, true);
-                xhr.send(data);
-            }
-        },
+				// Send request for authorization token.
+				var xhr = new XMLHttpRequest();
+				xhr.addEventListener('readystatechange', function (event) {
+					if (xhr.readyState == 4) {
+						if (xhr.status == 200) {
+							if (xhr.responseText.match(/error=/)) {
+								removeTab();
+							} else {
+								var result = JSON.parse(xhr.responseText);
+								var token = result.access_token;// xhr.responseText.match(/access_token=([^&]*)/)[1];
+								Mingdao.setToken(token);
+								removeTab();
+							}
+						} else {
+							removeTab();
+						}
+					}
+				});
+				xhr.open('POST', access_token_url, true);
+				xhr.send(data);
+			}
+		},
 
-        /**
-         * Retreives the authorization token from local storage.
-         *
-         * @return Authorization token if it exists, null if not.
-         */
-        getToken: function() {
-            return window.localStorage.getItem(this.key);
-        },
+		/**
+		 * Retreives the authorization token from local storage.
+		 *
+		 * @return Authorization token if it exists, null if not.
+		 */
+		getToken: function () {
+			return window.localStorage.getItem(this.key);
+		},
 
-        /**
-         * Clears the authorization token from the local storage.
-         */
-        clearToken: function() {
-            delete window.localStorage.removeItem(this.key);
-        }
-    }
+		/**
+		 * Clears the authorization token from the local storage.
+		 */
+		clearToken: function () {
+			delete window.localStorage.removeItem(this.key);
+		}
+	}
 })();
