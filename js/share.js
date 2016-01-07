@@ -1,6 +1,34 @@
 ﻿"use strict";
 var bg = chrome.extension && chrome.extension.getBackgroundPage && chrome.extension.getBackgroundPage();
+
+
 window.addEventListener("load", function () {
+
+    var pageData = Mingdao.getPageData();
+    var data;
+    if (pageData)
+        data = JSON.parse(pageData);
+    if(data){
+        var url="https://www.mingdao.com/share?";
+        if(data.info.linkUrl){
+            url+="url="+data.info.linkUrl;
+        }else{
+            url+="url="+data.info.pageUrl;
+        }
+        if(data.info.selectionText){
+            url+="&title="+data.info.selectionText
+        }else{
+            url+="&title="+data.tab.title;
+        }
+        if(data.info.srcUrl){
+            url+="&pic="+data.info.srcUrl;
+        }
+        url+="&appkey=932454786"
+        location.href=url;
+    }else{
+        alert("没有捕获到网页内容");
+    }
+    return;
     var b = document.querySelector("#dialog-box .image-picker .carousel-clip");
     var imgPicker = document.querySelector("#dialog-box .image-picker");
     var doms = [document.querySelector("#dialog-box .pin-form"), $("loading"), $("authorization")];

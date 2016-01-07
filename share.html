@@ -13,77 +13,77 @@
     <script src="js/share.js" type="text/javascript"></script>
 </head>
 <body>
-          <div id="dialog-box" class="dialog-box">
-            <div class="box-inner">
-              <div class="pbt" style="display: block;">
-                <div class="image-picker">
-                  <img src="images/load.gif" alt="Loading Indicator" class="load" style="display:none">
-                  <div class="images carousel-container">
-                    <div class="carousel-clip"><img src="//:0"></div>
-                  </div>
-                </div>
-                <div class="pin-form" style="display: block;">
-                  <div class="board-list-overlay"></div>
-                  <div class="board-picker">
-                    <div class="current">
-                      <div class="name">加载中...</div>
-                      <div class="down-arrow"></div>
-                    </div>
-                    <div class="board-list">
-                      <div class="board-list-body" style="height: 30px;">
-                        <ul>
-                            <li class="board-category"><span>--所有同事--</span></li>
-                        </ul>
-                      </div>
-                      <div class="create-board" style="display:none!important">
-                        <input type="text" id="board_name_input" placeholder="创建新画板">
-                        <a href="javascript:void(0);" class="nf btn wbtn disabled">创建</a>
-                        <div class="create-board-status"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="fancy-form">
-                    <div class="pin-desc">
-                      <textarea name="caption" id="description" cols="30" rows="2" class="description-textarea"></textarea>
-                      <input type="hidden" id="url" value="http://www.baidu.com/">
-                      <label for="" style="display: none;">描述一下这个分享…</label>
-                      <div class="tag-tip" style="display: block;">
-                        <span>通过#标签#可以给分享的内容添加标签</span>
-                      </div>
-                      <div class="tag-prompt" style="display: none;">
-                        <span>推荐标签:</span>
-                        <div class="tags"></div>
-                      </div>
-                      <span class="fff"></span>
-                    </div>
-                  </div>
-                  <div class="create-board-status error mainerror"></div>
-                  <div class="buttons">
-                    <a href="javascript:void(0);" class="btn rbtn">分享</a>
-                    <label for="" class="weibo less" style="display: none;">
-                      <input type="checkbox" class="publish_to_weibo">
-                      <span>分享到明道</span>
-                    </label>
-                  </div>
-                </div>
-                <div id="loading" style="display: none;">
-                  <div class="desc">正在加载，请稍候...</div>
-                  <div class="authorising"></div>
-                </div>
-                <div id="authorization" style="display: none;">
-                  <div class="desc">
-                    您尚未绑定明道账号，点击下面按钮绑定明道账号
-                  </div>
-                  <a href="javascript:void(0);" class="btn rbtn" id="auth_btn">绑定账号</a>
-                </div>
-              </div>
-              <div id="pin-done" class="pin-done" style="display: none;">
-                <h3>你已经成功分享到明道<a href="javascript:void(0);" target="_blank" class="less"></a></h3>
-                <div id="pin_operations">
-                  <a id="view_pin" href="javascript:void(0);">查看这个分享</a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!--<div id="dialog-box" class="dialog-box">-->
+            <!--<div class="box-inner">-->
+              <!--<div class="pbt" style="display: block;">-->
+                <!--<div class="image-picker">-->
+                  <!--<img src="images/load.gif" alt="Loading Indicator" class="load" style="display:none">-->
+                  <!--<div class="images carousel-container">-->
+                    <!--<div class="carousel-clip"><img src="//:0"></div>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="pin-form" style="display: block;">-->
+                  <!--<div class="board-list-overlay"></div>-->
+                  <!--<div class="board-picker">-->
+                    <!--<div class="current">-->
+                      <!--<div class="name">加载中...</div>-->
+                      <!--<div class="down-arrow"></div>-->
+                    <!--</div>-->
+                    <!--<div class="board-list">-->
+                      <!--<div class="board-list-body" style="height: 30px;">-->
+                        <!--<ul>-->
+                            <!--<li class="board-category"><span>&#45;&#45;所有同事&#45;&#45;</span></li>-->
+                        <!--</ul>-->
+                      <!--</div>-->
+                      <!--<div class="create-board" style="display:none!important">-->
+                        <!--<input type="text" id="board_name_input" placeholder="创建新画板">-->
+                        <!--<a href="javascript:void(0);" class="nf btn wbtn disabled">创建</a>-->
+                        <!--<div class="create-board-status"></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="fancy-form">-->
+                    <!--<div class="pin-desc">-->
+                      <!--<textarea name="caption" id="description" cols="30" rows="2" class="description-textarea"></textarea>-->
+                      <!--<input type="hidden" id="url" value="http://www.baidu.com/">-->
+                      <!--<label for="" style="display: none;">描述一下这个分享…</label>-->
+                      <!--<div class="tag-tip" style="display: block;">-->
+                        <!--<span>通过#标签#可以给分享的内容添加标签</span>-->
+                      <!--</div>-->
+                      <!--<div class="tag-prompt" style="display: none;">-->
+                        <!--<span>推荐标签:</span>-->
+                        <!--<div class="tags"></div>-->
+                      <!--</div>-->
+                      <!--<span class="fff"></span>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="create-board-status error mainerror"></div>-->
+                  <!--<div class="buttons">-->
+                    <!--<a href="javascript:void(0);" class="btn rbtn">分享</a>-->
+                    <!--<label for="" class="weibo less" style="display: none;">-->
+                      <!--<input type="checkbox" class="publish_to_weibo">-->
+                      <!--<span>分享到明道</span>-->
+                    <!--</label>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div id="loading" style="display: none;">-->
+                  <!--<div class="desc">正在加载，请稍候...</div>-->
+                  <!--<div class="authorising"></div>-->
+                <!--</div>-->
+                <!--<div id="authorization" style="display: none;">-->
+                  <!--<div class="desc">-->
+                    <!--您尚未绑定明道账号，点击下面按钮绑定明道账号-->
+                  <!--</div>-->
+                  <!--<a href="javascript:void(0);" class="btn rbtn" id="auth_btn">绑定账号</a>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div id="pin-done" class="pin-done" style="display: none;">-->
+                <!--<h3>你已经成功分享到明道<a href="javascript:void(0);" target="_blank" class="less"></a></h3>-->
+                <!--<div id="pin_operations">-->
+                  <!--<a id="view_pin" href="javascript:void(0);">查看这个分享</a>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
 </body>
 </html>
