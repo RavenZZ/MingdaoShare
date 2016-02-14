@@ -9,7 +9,7 @@ window.addEventListener("load", function () {
     if (pageData)
         data = JSON.parse(pageData);
     if(data){
-        var url="https://www.mingdao.com/share?";
+        var url=window.shareUrl+"?";
         if(data.info.linkUrl){
             url+="url="+data.info.linkUrl;
         }else{
