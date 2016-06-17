@@ -1,119 +1,53 @@
 ﻿"use strict";
 var bg = chrome.extension && chrome.extension.getBackgroundPage && chrome.extension.getBackgroundPage();
-
-
+window.addEventListener('message',function(event) {
+    console.log('received response:  ',event.data);
+    debugger;
+},false);
 window.addEventListener("load", function () {
-
-    var pageData = Mingdao.getPageData();
     var data;
-    if (pageData)
-        data = JSON.parse(pageData);
+    var mediaUrl = QueryString["media"];
+    if (mediaUrl) {
+        mediaUrl = decodeURIComponent (mediaUrl);
+        var linkUrl = decodeURIComponent (QueryString["url"]);
+        var width = QueryString["w"];
+        var height = QueryString["h"];
+        var description = decodeURIComponent (QueryString["description"]);
+        var data = {
+            type: 'img',
+            info: {
+                pageUrl: linkUrl,
+                srcUrl:mediaUrl,
+            },
+            tab: { title: description, url: linkUrl }
+        };
+        Mingdao.setPageData(JSON.stringify(data));
+    }
+    if(!data){
+        var pageData = Mingdao.getPageData();
+        if (pageData)
+            data = JSON.parse(pageData);
+    }
     if(data){
         var url=window.shareUrl+"?";
         if(data.info.linkUrl){
-            url+="url="+data.info.linkUrl;
+            url+="url="+data.info.linkUrl.replace(/#(.)*/g,'');
         }else{
-            url+="url="+data.info.pageUrl;
+            url+="url="+data.info.pageUrl.replace(/#(.)*/g,'');
         }
         if(data.info.selectionText){
-            url+="&title="+data.info.selectionText
+            url+="&title="+data.info.selectionText.substring(0,500);
         }else{
-            url+="&title="+data.tab.title;
+            url+="&title="+data.tab.title.substring(0,500);
         }
         if(data.info.srcUrl){
             url+="&pic="+data.info.srcUrl;
         }
-        url+="&appkey=932454786"
+        url+="&type="+data.type;
+        url+="&appkey="+app_key;
         location.href=url;
     }else{
         alert("没有捕获到网页内容");
-    }
-    return;
-    var b = document.querySelector("#dialog-box .image-picker .carousel-clip");
-    var imgPicker = document.querySelector("#dialog-box .image-picker");
-    var doms = [document.querySelector("#dialog-box .pin-form"), $("loading"), $("authorization")];
-    var pageData = Mingdao.getPageData();
-    var data;
-    if (pageData)
-        data = JSON.parse(pageData);
-    var ShowImage = function () {
-        var c = new Image();
-        var Canvas;
-        try {
-            Canvas = Mingdao.getCanvas() || parent.photoshop.getDataUrl();
-        } catch (e) {
-
-        }
-        
-        if (Canvas) {
-            c.src = Canvas;
-            b.appendChild(c);
-            imgPicker.style.display = "block";
-            for (var i = 0, len = doms.length; i < len; i++) {
-                var dom = doms[i];
-                dom.style.marginLeft = "190px";
-            }
-        } else {
-            imgPicker.style.display = "none";
-            for (var i = 0, len = doms.length; i < len; i++) {
-                var dom = doms[i];
-                dom.style.marginLeft = "0px";
-            }
-        }
-
-        var pageData = Mingdao.getPageData();
-        var data;
-        if (pageData)
-            data = JSON.parse(pageData);
-        if (data) {
-            var data = JSON.parse(pageData);
-            if (data.info.selectionText)
-                $("description").value = data.info.selectionText;
-            else
-                $("description").value = data.tab.title;
-            if (data.info.linkUrl)
-                $("url").value = data.info.linkUrl;
-            else
-                $("url").value = data.info.pageUrl;
-        }
-        var a = Mingdao.getUser();
-        UploadUI.init(a);
-        if (!a) {
-            UploadUI.showAuth()
-        } else {
-            UploadUI.getBoards(a)
-        }
-        $("auth_btn").addEventListener("click",
-        function (d) {
-            UploadUI.showLoading();
-            UploadUI.getAccessToken();
-            d.preventDefault()
-        });
-    }
-
-
-    var mediaUrl = QueryString["media"];
-    if (mediaUrl) {
-        mediaUrl = unescape(mediaUrl);
-        var linkUrl = unescape(QueryString["url"]);
-        var width = QueryString["w"];
-        var height = QueryString["h"];
-        var description = unescape(QueryString["description"]);
-        var data = {
-            type: 'pic',
-            info: { pageUrl: linkUrl },
-            tab: { title: description, url: linkUrl }
-        };
-        Mingdao.setPageData(JSON.stringify(data));
-        Mingdao.setCanvas(mediaUrl, function () {
-            ShowImage();
-        });
-    } else {
-        if (data && data.canvas) {
-            Mingdao.setCanvas(data.info.srcUrl, ShowImage);
-        } else { //链接
-            Mingdao.setCanvas('',ShowImage);
-        }
     }
 });
 

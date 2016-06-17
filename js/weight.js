@@ -7,14 +7,15 @@
             a.style.height = document.body.scrollHeight + "px";
             a.style.display = "block";
             var param = [
-              "media=" + escape(obj.media),
-              "url=" + escape(obj.url),
+              "media=" + encodeURIComponent(obj.media),
+              "url=" + encodeURIComponent(obj.url),
               "w=" + obj.w,
               "h=" + obj.h,
-              "description=" + obj.description
+              "description=" + encodeURIComponent(obj.description)
             ];
-            document.getElementById("share-to-mingdao").src = MINGDAO_PRESETTINGS.shareUrl + "?" + param.join("&");
-            document.getElementById("pin_wrapper").style.display = "block";
+            console.log(MINGDAO_PRESETTINGS.shareUrl+ "?" + param.join("&"));
+            debugger;
+            window.open(MINGDAO_PRESETTINGS.shareUrl+ "?" + param.join("&"));
         }
     },
     function (a, b, c) {
@@ -933,8 +934,7 @@
     }(window, document),
     function (a, b) {
         var c = b.Qatrix,
-        d = "http://mingdao.com";
-        a.__mingdao_dev && (d = "http://" + __mingdao_dev);
+        d = MINGDAO_PRESETTINGS.shareUrl;
         var e = b.settings = {
             autoInitialize: !0,
             autoAttachFloatingButton: !1,
@@ -953,10 +953,10 @@
                 bg: -1
             },
             mingdaoUrl: d,
-            popupUrl: d + "/bookmarklet/",
-            multiPopupUrl: d + "/bookmarklet_multiple/",
+            popupUrl: d ,
+            multiPopupUrl: d ,
             imgBase: MINGDAO_PRESETTINGS.imgBase,
-            analyticsUrl: d.replace("http:", "") + "/share_analytics.html?v=3",
+            analyticsUrl: d + "/share_analytics.html?v=3",
             waterfallLimit: 600,
             md: "",
             via: 2,
@@ -1122,8 +1122,7 @@
             main: ['<div class="main">', '<div id="WATERFALL_HOLDER" class="waterfall-holder">', '<div class="waterfall">', "</div>", "</div>", '<div class="header">', '<div class="inner sync">', '<a class="logo" href="{{mingdaoUrl}}" target="_blank">', '<img src="{{imgBase}}/mingdao_logo.png">', "</a>", '<div class="multi-noti">已选择 <b>1</b> 张<span>（最多 <i>10</i> 张）</span></div>', '<div class="multi-buttons">', '<div class="btn confirm">批量分享</div>', '<div class="btn wbtn cancel">取消</div>', "</div>", '<div class="notice" style="display: none"><i></i><span></span></div>', '<div class="switcher switch-order">', '<div class="title">图片排序</div>', '<div class="bar">', '<div class="text-1">推荐</div>', '<div class="text-2">自然</div>', '<div class="round"></div>', "</div>", "</div>", "</div>", '<div class="close", title="或按 ESC 键关闭">', "</div>", "</div>", "</div>"].join(""),
             "message-box": '<div id="MINGDAO_MESSAGE" style="display: none"></div>',
             "waterfall-cell": ['<div class="cell">', '<div class="img-holder">', '<img src="{{imgUrl}}" class="cell-img" height="{{imgHeight}}"/>', '<div class="pinned-label">已分享</div>', '<div class="video-icon"></div>', '<div class="over">',
-            '<div class="select-btn"></div>',
-            "</div>", "</div>", '<div class="size">{{size.x}} x {{size.y}}</div>', '<div contenteditable="true" class="description">{{description}}</div>', "</div>"].join(""),
+            "</div>", "</div>", '<div class="size">{{size.x}} x {{size.y}}</div>',"</div>"].join(""),
             "empty-alert": ['<div class="empty">没有找到足够大的图片/视频</div>'].join(""),
             "floating-button": ['<div class="f-button {{extraClass}}">', "{{inner}}", "</div>"].join("")
         };
@@ -1973,16 +1972,17 @@
                     var f = {};
                     d.push(f);
                     for (key in c[e]) "elem" != key && (f[key] = c[e][key]);
-                    f.url = f.url || location.href
+                    f.url = f.url || location.href;
                 }
                 this.exportUnits = d;
-                var g = "status=no,resizable=no,scrollbars=yes,personalbar=no,directories=no,location=no,toolbar=no,menubar=no,width=500,height=350,left=0,top=0";
-                this.multiPopupWindow = win.open(global.settings.multiPopupUrl, "", g)
+                var g=global.settings.multiPopupUrl;
+                this.multiPopupWindow = win.open(global.settings.multiPopupUrl);
+                global.popup.sendExportUnits();
             },
             sendExportUnits: function () {
                 if (this.exportUnits && this.exportUnits.length) {
                     var b = JSON.stringify(this.exportUnits);
-                    this.multiPopupWindow.postMessage(b, global.settings.mingdaoUrl)
+                    this.multiPopupWindow.postMessage(b, global.settings.multiPopupUrl)
                 }
             }
         }
@@ -2095,7 +2095,6 @@
                             c.$hide(g)
                         })
                     }
-                    d.initTextEl(c.$class(e, "MINGDAO-description")[0])
                 })
             },
             setMessage: function (b) {
@@ -2141,7 +2140,7 @@
                 this.isShowing = !1
             },
             checkPermission: function () {
-                if (location.href.match(/^https?:\/\/mingdao.com/)) {
+                if (location.href.match(/^https?:\/\/*.mingdao.com/)) {
                     var a = "你就在明道本站呢，不可以直接分享本站图片。";
                     return b.app && app.error ? app.error(a) : alert(a),
                     !0

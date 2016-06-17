@@ -549,7 +549,7 @@ function selectionMenuClick(info,tab) {
                 },
                 function (tabs) {
                     var data = {
-                        type: 'post',
+                        type: 'text',
                         info: info,
                         tab: tab
                     };
@@ -601,7 +601,7 @@ function imgMenuClick(info, tab) {
                 },
                 function (tabs) {
                     var data = {
-                        type: 'pic',
+                        type: 'img',
                         canvas:true,
                         info: info,
                         tab: tab
